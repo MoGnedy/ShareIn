@@ -1,0 +1,88 @@
+<section>
+  <div class="page-header">
+    <h1 ng-bind="vm.sharetool.Data[0].title"></h1>
+  </div>
+  <div class="pull-right"
+       ng-show="vm.sharetool.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       ui-sref="sharetools.edit({ sharetoolId: vm.sharetool._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="vm.sharetool.created | date:'mediumDate'"></span>
+      by
+      <span ng-if="vm.sharetool.Data[0].user"
+            ng-bind="vm.sharetool.Data[0].user.displayName"></span>
+      <span ng-if="!vm.sharetool.Data[0].user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" ng-bind="vm.sharetool.Data[0].content"></p>
+</section>
+
+
+
+
+
+
+
+
+
+{{authentication.user._id}}
+<section>
+  <div class="page-header">
+    <h1>{{vm.comment._id ? 'Edit Comment' : 'New Comment'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.commentForm" class="form-horizontal" ng-submit="vm.saveComment(vm.form.commentForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="comment">Comment</label>
+          <textarea name="name" type="text" ng-model="vm.comment.comment" id="comment" class="form-control" placeholder="comment" required></textarea>
+          <div ng-messages="vm.form.commentForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Comment  is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.comment._id ? 'Update' : 'Comment'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>
+
+
+
+<section>
+  <div class="page-header">
+    <h1>Comments</h1>
+  </div>
+  <div class="list-group" id="comments">
+    <!-- {{vm.sharetool.Data[1]}} -->
+    <a ng-repeat="comment in vm.sharetool.Data[1]"
+       ui-sref="sharetools.view({ sharetoolId: comment._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="comment.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="comment.user" ng-bind="comment.user.displayName"></span>
+        <span ng-if="!comment.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="comment.title"></h4>
+      <p class="list-group-item-text" ng-bind="comment.comment"></p>
+      <img ng-src="{{comment.user.profileImageURL}}" alt="{{comment.title}}" class="header-profile-image" />
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.sharetools.$resolved && !vm.sharetools.length">
+    No Sharetools yet, why don't you <a ui-sref="sharetools.create">create one</a>?
+  </div>
+</section>

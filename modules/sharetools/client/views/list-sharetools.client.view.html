@@ -1,0 +1,24 @@
+<section>
+  <div class="page-header">
+    <h1>Sharetools</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="sharetool in vm.sharetools"
+       ui-sref="sharetools.view({ sharetoolId: sharetool._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="sharetool.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="sharetool.user" ng-bind="sharetool.user.displayName"></span>
+        <span ng-if="!sharetool.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="sharetool.title"></h4>
+      <p class="list-group-item-text" ng-bind="sharetool.content"></p>
+      <img ng-src="{{sharetool.toolImageURL}}" alt="{{sharetool.title}}" class="header-profile-image" />
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.sharetools.$resolved && !vm.sharetools.length">
+    No Sharetools yet, why don't you <a ui-sref="sharetools.create">create one</a>?
+  </div>
+</section>

@@ -2,6 +2,18 @@
 
 // Create the chat configuration
 module.exports = function (io, socket) {
+
+    // console.log(socket);
+    console.log("server Chat Socket");
+    socket.on('sendComment', function (message) {
+      console.log("server Emit");
+      console.log(message);
+      io.emit('UpdateComments',message._id);
+      io.sockets.emit('UpdateComments',message._id);
+
+      // io.emit('chatMessage', message);
+    });
+
   // Emit the status event when a new socket client is connected
   io.emit('chatMessage', {
     type: 'status',
