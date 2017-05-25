@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   // Sharetools controller
@@ -6,9 +6,9 @@
     .module('sharetools')
     .controller('SharetoolsController', SharetoolsController);
 
-  SharetoolsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'sharetoolResolve', '$http', '$compile', 'Socket' ];
+  SharetoolsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'sharetoolResolve', '$http', '$compile', 'Socket'];
 
-  function SharetoolsController ($scope, $state, $window, Authentication, sharetool, $http, $compile, Socket) {
+  function SharetoolsController($scope, $state, $window, Authentication, sharetool, $http, $compile, Socket) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -58,52 +58,55 @@
     $scope.imageURL = 'modules/sharetools/client/img/tool/default.jpg';
 
 
-   // Comments
-   // Save Sharetool
-   function saveComment(isValid) {
-     if (!isValid) {
-       $scope.$broadcast('show-errors-check-validity', 'vm.form.commentForm');
-       return false;
-     }
-     console.log("true");
-     // TODO: move create/update logic to service
-     if (vm.comment._id) {
-       vm.comment.$update(successCallback, errorCallback);
-     } else {
-      //  vm.comment.$save(successCallback, errorCallback);
-      console.log(vm.sharetool.Data[0]._id);
-      $http.post('api/comments', {'comment':vm.comment.comment, 'toolId': vm.sharetool.Data[0] } );
-      Socket.emit('sendComment', vm.sharetool.Data[0]);
-      vm.comment = '';
+    // Comments
+    // Save Sharetool
+    function saveComment(isValid) {
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'vm.form.commentForm');
+        return false;
+      }
+      console.log("true");
+      // TODO: move create/update logic to service
+      if (vm.comment._id) {
+        vm.comment.$update(successCallback, errorCallback);
+      } else {
+        //  vm.comment.$save(successCallback, errorCallback);
+        console.log(vm.sharetool.Data[0]._id);
+        $http.post('api/comments', {
+          'comment': vm.comment.comment,
+          'toolId': vm.sharetool.Data[0]
+        });
+        Socket.emit('sendComment', vm.sharetool.Data[0]);
+        vm.comment = '';
+      }
+
+      function successCallback(res) {
+        console.log(res._id);
+        $state.go('sharetools.view', {
+          sharetoolId: res._id
+        });
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
     }
 
-     function successCallback(res) {
-       console.log(res._id);
-       $state.go('sharetools.view', {
-         sharetoolId: res._id
-       });
-     }
 
-     function errorCallback(res) {
-       vm.error = res.data.message;
-     }
-   }
+    Socket.on('UpdateComments', function(message) {
+      console.log(vm.sharetool.Data[0]._id);
+      console.log(message);
+      if (message === vm.sharetool.Data[0]._id) {
+        $http.post('/api/getComments', vm.sharetool.Data[0])
+          .success(function(data) {
+            vm.sharetool.Data = data.Data;
+          })
+          .error(function(data, status) {
+            console.error('Repos error', status, data);
+          });
 
-
-   Socket.on('UpdateComments', function (message) {
-     console.log(vm.sharetool.Data[0]._id);
-     console.log(message);
-     if (message == vm.sharetool.Data[0]._id){
-      $http.post('/api/getComments', vm.sharetool.Data[0])
-      .success(function(data) {
-          vm.sharetool.Data = data.Data;
-        })
-        .error(function(data, status) {
-          console.error('Repos error', status, data);
-        });
-
-     }
-   });
+      }
+    });
 
 
   }
