@@ -1,8 +1,8 @@
 'use strict';
 
 // Create the 'chat' controller
-angular.module('chat').controller('ChatController', ['$scope', '$location', 'Authentication', 'Socket',
-  function ($scope, $location, Authentication, Socket) {
+angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$location', 'Authentication', 'Socket',
+  function ($scope, $rootScope, $location, Authentication, Socket) {
     // Create a messages array
     $scope.messages = [];
 
@@ -13,12 +13,15 @@ angular.module('chat').controller('ChatController', ['$scope', '$location', 'Aut
 
     // Make sure the Socket is connected
     if (!Socket.socket) {
+      console.log("Chat connected");
       Socket.connect();
     }
 
     // Add an event listener to the 'chatMessage' event
     Socket.on('chatMessage', function (message) {
       $scope.messages.unshift(message);
+      $rootScope.onlineUsers = message.onlineUsers;
+
     });
 
     // Create a controller method for sending messages
@@ -38,6 +41,11 @@ angular.module('chat').controller('ChatController', ['$scope', '$location', 'Aut
     // Remove the event listener when the controller instance is destroyed
     $scope.$on('$destroy', function () {
       Socket.removeListener('chatMessage');
+    });
+
+
+    Socket.on('onlineUsers', function (onlineUsers) {
+      $rootScope.onlineUsers = onlineUsers;
     });
   }
 ]);

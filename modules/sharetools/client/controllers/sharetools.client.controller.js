@@ -20,7 +20,7 @@
     vm.saveComment = saveComment;
     if (!Socket.socket) {
       Socket.connect();
-      console.log("connected");
+      console.log("ShareTools connected");
     }
     // Remove existing Sharetool
     function remove() {
@@ -76,7 +76,7 @@
           'comment': vm.comment.comment,
           'toolId': vm.sharetool.Data[0]
         });
-        Socket.emit('sendComment', vm.sharetool.Data[0]);
+        Socket.emit('sendToolComment', vm.sharetool.Data[0]);
         vm.comment = '';
       }
 
@@ -93,10 +93,10 @@
     }
 
 
-    Socket.on('UpdateComments', function(message) {
+    Socket.on('UpdateToolComments', function(tool_id) {
       console.log(vm.sharetool.Data[0]._id);
-      console.log(message);
-      if (message === vm.sharetool.Data[0]._id) {
+      console.log(tool_id);
+      if (tool_id === vm.sharetool.Data[0]._id) {
         $http.post('/api/getComments', vm.sharetool.Data[0])
           .success(function(data) {
             vm.sharetool.Data = data.Data;

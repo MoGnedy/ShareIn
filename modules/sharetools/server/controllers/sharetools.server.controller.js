@@ -158,9 +158,9 @@ exports.sharetoolByID = function(req, res, next, id) {
 
   module.exports = function (io, socket) {
     console.log(socket);
-    socket.on('sendComment', function (message) {
+    socket.on('sendToolComment', function (tool) {
       console.log("server Emit");
-      console.log(message);
+      console.log(tool);
 
       // io.emit('chatMessage', message);
     });
