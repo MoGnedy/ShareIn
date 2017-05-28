@@ -7,6 +7,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   // privatMsg = mongoose.model('privatMsg'),
   _PrivatMsg = mongoose.model('PrivatMsg'),
+  _User = mongoose.model('User'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -111,7 +112,25 @@ exports.list = function(req, res) {
   }
 };
 
-
+exports.getPrivateUser = function(req, res) {
+  console.log('----------------------------------------------');
+  console.log(req.body);
+  if (req.body.id) {
+    _User.find({
+      '_id': req.body.id
+    }).exec(function(err, user) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        console.log("------------ Private User messages -----------------");
+        console.log(user);
+        res.jsonp(user);
+      }
+    });
+  }
+};
 
 /**
  * privatMsg middleware

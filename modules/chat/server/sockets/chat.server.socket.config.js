@@ -45,14 +45,33 @@ module.exports = function(io, socket) {
   });
 
 
-  // console.log(socket);
-  // console.log("server Chat Socket");
-  // socket.on('sendToolComment', function(tool) {
-  //   console.log("server Emit");
-  //   console.log(tool);
-  //   io.emit('UpdateToolComments', tool._id);
-  //   io.sockets.emit('UpdateToolComments', tool._id);
-  //
-  // });
+  socket.on('privateMessage', function(msgData) {
+    console.log(msgData);
+    console.log(msgData.receiver);
+    // console.log(onlineUsers);
+    var anotherUserName = msgData.receiver;
+    var receiverSocketId;
+    for (var key in onlineUsers) {
+      if (onlineUsers[key].username === anotherUserName) {
+        receiverSocketId = key;
+      }
+    }
+
+    if (receiverSocketId){
+      console.log('true');
+      console.log(receiverSocketId);
+      console.log(io.sockets.connected[receiverSocketId]);
+      if (io.sockets.connected[receiverSocketId]) {
+          msgData = {'displayName': msgData.sender, 'message': msgData.message, 'created': msgData.date, 'profileImageURL': msgData.profileImageURL};
+          io.sockets.connected[receiverSocketId].emit('privateMessage', msgData );
+      }
+    // messageData = [messageData[2], messageData[1]]
+    //
+    // anotherClientSocket.emit('privateMessage', messageData)
+  }else{
+    console.log('User is not connected');
+  }
+
+  });
 
 };

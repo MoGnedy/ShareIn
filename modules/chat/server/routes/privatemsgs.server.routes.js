@@ -13,6 +13,8 @@ module.exports = function(app) {
     .post(privatMsg.create);
   app.route('/api/getPrivatemsgs')
     .post(privatMsg.list);
+  app.route('/api/getPrivateUser')
+    .post(privatMsg.getPrivateUser);
 
 
 

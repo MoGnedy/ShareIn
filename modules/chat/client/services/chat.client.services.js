@@ -29,6 +29,19 @@ angular.module('chat').factory("privateMessages", function($http, $q, $rootScope
       });
       return def.promise;
     },
+    getPrivateUser: function(id) {
+      var def = $q.defer();
+      $http({
+        "url": "/api/getPrivateUser",
+        "method": "post",
+        "data": id
+      }).then(function(res) {
+        def.resolve(res.data);
+      }, function(err) {
+        def.reject(err.data);
+      });
+      return def.promise;
+    },
 
 
   };

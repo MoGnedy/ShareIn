@@ -82,17 +82,17 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
         'private_message': $scope.privateText
       };
       console.log(privateMessageData);
-      var messageData = [$rootScope.privateUserName, $scope.privateText, $scope.authentication.user.username];
 
       privateMessages.savePrivateMsg(privateMessageData).then(function(res) {
         console.log(res);
+        var messageData = {'receiver':$rootScope.privateUserName, 'message': $scope.privateText, 'sender': $scope.authentication.user.username,'date': res.created};
+        console.log(messageData);
         if (res && !res.status) {
-          if ($scope.privateMessage !== []) {
-
-            // socket.emit('privateMessage', messageData);
+          if ($scope.privateText !== '' ) {
+              Socket.emit('privateMessage', messageData);
           }
-          $rootScope.privateMessages.push($scope.authentication.user.username + " : " + $scope.privateText);
-          $scope.privateMessage = [];
+          $rootScope.privateMessages.unshift({'displayName': $scope.authentication.user.displayName, 'profileImageURL': $scope.authentication.user.profileImageURL, 'message': $scope.privateText });
+          $scope.privateText = '';
         } else {
           console.log("send error");
         }
@@ -103,9 +103,39 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
   };
   console.log($state);
   if( $state.current.name === 'chat.private' && $state.current.url === '/:userId' && $state.params.userId !== '' ){
+    privateMessages.getPrivateUser({id:$state.params.userId}).then(function(res) {
+      console.log(res[0].username);
+      var private_code = '';
+      if (res && res[0].username && !res.status) {
+          if ($rootScope.privateUserName && $rootScope.privateUserName !== res[0].username || !$rootScope.private_code ){
+            $rootScope.privateUserName = res[0].username;
+            var TwoNames = [Authentication.user.username, $rootScope.privateUserName].sort();
+            var code = TwoNames[0] + "(#Private#)" + TwoNames[1];
+            console.log(TwoNames);
+            for (var i = 0; i < code.length; i++) {
+              private_code += code.charCodeAt(i);
+            }
+          }else {
+            console.log('else');
+           private_code = $rootScope.private_code;
+          }
+          $rootScope.private_code = private_code;
+          console.log($rootScope.private_code);
+          console.log(private_code);
+            $rootScope.user_privateMsg(private_code);
+      } else {
+        console.log("no messages");
+      }
 
-
+    });
 
   }
+
+  Socket.on('privateMessage', function (msgData) {
+    console.log(msgData);
+    $scope.privateMessages.unshift(msgData);
+
+  });
+
   }
 ]);
