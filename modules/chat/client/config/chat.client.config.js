@@ -6,7 +6,7 @@ angular.module('chat').run(['Menus',
     // Set top bar menu items
     Menus.addMenuItem('topbar', {
       title: 'Chat',
-      state: 'chat'
+      state: 'chat.all'
     });
   }
 ]);

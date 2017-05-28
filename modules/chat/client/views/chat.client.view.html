@@ -2,13 +2,26 @@
 
 <div class="row" ng-controller="ChatController">
   <div class="col-md-2">
+    {{onlineUsers}}
+
+  <ul class="item-divider">Online Users
+    <li>
+    <input type='button'  ng-repeat="(key, value) in onlineUsers" ng-if="value.username != authentication.user.username" id="{{value._id}}" username="{{value.username}}" value='{{value.username}}' private-msg  >
+
+    </li>
+  </ul>
+
+
+
+
     <!-- {{onlineUsers}} -->
-    <h1>onlineUsers</h1>
-    <ul>
+    <!-- <h1>onlineUsers</h1> -->
+    <!-- <ul>
       <li ng-repeat="(key, value) in onlineUsers">
-        <a href="#">{{value.username}}</a>
+        {{value._id}}
+        <a ui-sref="chat.private({ userId: value._id })">{{value.username}}</a>
       </li>
-    </ul>
+    </ul> -->
   </div>
   <div class="col-md-9">
 
