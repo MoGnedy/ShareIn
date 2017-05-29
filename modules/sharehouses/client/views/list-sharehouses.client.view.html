@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Sharehouses</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="sharehouse in vm.sharehouses"
+       ui-sref="sharehouses.view({ sharehouseId: sharehouse._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="sharehouse.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="sharehouse.user" ng-bind="sharehouse.user.displayName"></span>
+        <span ng-if="!sharehouse.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="sharehouse.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.sharehouses.$resolved && !vm.sharehouses.length">
+    No Sharehouses yet, why don't you <a ui-sref="sharehouses.create">create one</a>?
+  </div>
+</section>

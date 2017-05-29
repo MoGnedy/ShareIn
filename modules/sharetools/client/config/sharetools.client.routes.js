@@ -46,7 +46,7 @@
         },
         data: {
           roles: ['user', 'admin'],
-          pageTitle: 'Edit Sharetool {{ sharetoolResolve.name }}'
+          pageTitle: 'Edit Sharetool {{ sharetoolResolve.title }}'
         }
       })
       .state('sharetools.view', {
@@ -58,7 +58,7 @@
           sharetoolResolve: getSharetool
         },
         data: {
-          pageTitle: 'Sharetool {{ sharetoolResolve.name }}'
+          pageTitle: 'Sharetool {{ sharetoolResolve.title }}'
         }
       });
   }

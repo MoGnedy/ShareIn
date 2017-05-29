@@ -13,6 +13,7 @@
 
     vm.authentication = Authentication;
     vm.sharetool = sharetool;
+    vm.sharetoolOS = sharetool;
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
@@ -25,7 +26,8 @@
     // Remove existing Sharetool
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
-        vm.sharetool.$remove($state.go('sharetools.list'));
+        vm.sharetoolOS._id = vm.sharetool.Data[0]._id;
+        vm.sharetoolOS.$remove($state.go('sharetools.list'));
       }
     }
 
@@ -35,12 +37,19 @@
         $scope.$broadcast('show-errors-check-validity', 'vm.form.sharetoolForm');
         return false;
       }
-
+      console.log(vm.sharetool.Data[0]);
       // TODO: move create/update logic to service
-      if (vm.sharetool._id) {
-        vm.sharetool.$update(successCallback, errorCallback);
+      if (vm.sharetool.Data[0]._id) {
+        vm.sharetoolOS._id = vm.sharetool.Data[0]._id;
+        vm.sharetoolOS.title = vm.sharetool.Data[0].title;
+        vm.sharetoolOS.content = vm.sharetool.Data[0].content;
+        vm.sharetoolOS.toolImageURL = vm.sharetool.Data[0].toolImageURL;
+        vm.sharetoolOS.$update(successCallback, errorCallback);
       } else {
-        vm.sharetool.$save(successCallback, errorCallback);
+        vm.sharetoolOS.title = vm.sharetool.Data[0].title;
+        vm.sharetoolOS.content = vm.sharetool.Data[0].content;
+        // vm.sharetoolOS.toolImageURL = vm.sharetool.Data[0].toolImageURL;
+        vm.sharetoolOS.$save(successCallback, errorCallback);
       }
 
       function successCallback(res) {

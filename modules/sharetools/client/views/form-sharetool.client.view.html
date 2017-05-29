@@ -1,22 +1,22 @@
 <section>
   <div class="page-header">
-    <h1>{{vm.sharetool._id ? 'Edit Sharetool' : 'New Sharetool'}}</h1>
+    <h1>{{vm.sharetool.Data[0]._id ? 'Edit Sharetool' : 'New Sharetool'}}</h1>
   </div>
   <div class="col-md-12">
     <form name="vm.form.sharetoolForm" class="form-horizontal" ng-submit="vm.save(vm.form.sharetoolForm.$valid)" novalidate>
-      {{vm.sharetool}}
+      {{vm.sharetool.Data[0]}}
       <fieldset>
         <div class="form-group" show-errors>
           <label class="control-label" for="name">Title</label>
-          <input name="title" type="text" ng-model="vm.sharetool.title" id="title" class="form-control" placeholder="Title" required>
+          <input name="title" type="text" ng-model="vm.sharetool.Data[0].title" id="title" class="form-control" placeholder="Title" required>
           <div ng-messages="vm.form.sharetoolForm.title.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Sharetool name is required.</p>
           </div>
-        <!-- {{vm.sharetool}} -->
+        <!-- {{vm.sharetool.Data[0]}} -->
         </div>
         <div class="form-group">
           <label for="content">Content</label>
-          <textarea name="content" ng-model="vm.sharetool.content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
+          <textarea name="content" ng-model="vm.sharetool.Data[0].content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
         </div>
 
 
@@ -26,7 +26,7 @@
                 </div>
                 <div class="text-center form-group" ng-hide="uploader.queue.length">
                   <span class="btn btn-default btn-file">
-                      Select Image <input type="file"  ng-model='vm.sharetool.toolImageURL' >
+                      Select Image <input type="file"  ng-model='vm.sharetool.Data[0].toolImageURL' >
                   </span>
                 </div>
 
@@ -41,7 +41,7 @@
 
 
         <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.sharetool._id ? 'Update' : 'Create'}}</button>
+          <button type="submit" class="btn btn-default">{{vm.sharetool.Data[0]._id ? 'Update' : 'Create'}}</button>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>
