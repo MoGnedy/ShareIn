@@ -74,3 +74,4 @@ mongod
 *.sln
 # images
 /modules/sharetools/client/img
+/modules/sharehouses/client/img
