@@ -28,7 +28,10 @@ var ArticleSchema = new Schema({
   user: {
     type: Schema.ObjectId,
     ref: 'User'
-  }
+  },
+  imageURL: {
+    type: String,
+  },
 });
 
 mongoose.model('Article', ArticleSchema);

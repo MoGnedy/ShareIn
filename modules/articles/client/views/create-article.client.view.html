@@ -17,6 +17,17 @@
           <textarea name="content" ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
         </div>
         <div class="form-group">
+          <input type="file" file-model="myFile"/><br><br>
+</div>
+{{myFile}}
+        <!-- Single Image with validations
+  <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+    ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+    ngf-resize="{width: 100, height: 100}">Select</div> -->
+  <!-- Multiple files
+  <div class="button" ngf-select ng-model="files" ngf-multiple="true">Select</div>
+  Drop files: <div ngf-drop ng-model="files" class="drop-box">Drop</div> -->
+        <div class="form-group">
           <input type="submit" class="btn btn-default">
         </div>
         <div ng-show="error" class="text-danger">

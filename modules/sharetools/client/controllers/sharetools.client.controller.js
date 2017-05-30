@@ -38,6 +38,7 @@
         return false;
       }
       console.log(vm.sharetool.Data[0]);
+      console.log(vm.myFile);
       // TODO: move create/update logic to service
       if (vm.sharetool.Data[0]._id) {
         vm.sharetoolOS._id = vm.sharetool.Data[0]._id;
@@ -46,8 +47,27 @@
         vm.sharetoolOS.toolImageURL = vm.sharetool.Data[0].toolImageURL;
         vm.sharetoolOS.$update(successCallback, errorCallback);
       } else {
+        var imageUrl = './modules/sharetools/client/img/tool/'+vm.myFile.name;
+        console.log(imageUrl);
+        var file = vm.myFile;
+         var uploadUrl = "/multer";
+         var fd = new FormData();
+         fd.append('file', file);
+         console.log('before Post');
+         $http.post(uploadUrl,fd, {
+             transformRequest: angular.identity,
+             headers: {'Content-Type': undefined}
+         })
+         .success(function(){
+           console.log("success!!");
+         })
+         .error(function(){
+           console.log("error!!");
+         });
+
         vm.sharetoolOS.title = vm.sharetool.Data[0].title;
         vm.sharetoolOS.content = vm.sharetool.Data[0].content;
+        vm.sharetoolOS.toolImageURL = imageUrl;
         // vm.sharetoolOS.toolImageURL = vm.sharetool.Data[0].toolImageURL;
         vm.sharetoolOS.$save(successCallback, errorCallback);
       }

@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Article = mongoose.model('Article'),
+  _ = require('lodash'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
@@ -107,4 +108,24 @@ exports.articleByID = function (req, res, next, id) {
     req.article = article;
     next();
   });
+
+};
+
+
+exports.upload = function (req, res, next) {
+  var data = _.pick(req.body, 'type');
+      var uploadPath = path.normalize('http://localhost:3000/uploads');
+      var file = req.files.file;
+
+      console.log(file.name); //original name (ie: sunset.png)
+      console.log(file.path); //tmp path (ie: /tmp/12345-xyaz.png)
+  console.log(uploadPath); //uploads directory: (ie: /home/user/data/uploads)
+};
+
+exports.uploadFile = function(req, res) {
+    // We are able to access req.files.file thanks to
+    // the multiparty middleware
+    var file = req.files.file;
+    console.log(file.name);
+    console.log(file.type);
 };
