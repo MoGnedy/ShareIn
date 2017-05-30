@@ -4,9 +4,23 @@
  * Module dependencies
  */
 var sharehousesPolicy = require('../policies/sharehouses.server.policy'),
-  sharehouses = require('../controllers/sharehouses.server.controller');
+  sharehouses = require('../controllers/sharehouses.server.controller'),
+  commentsPolicy = require('../policies/comments.server.policy'),
+  comment = require('../controllers/comments.server.controller');
 
+
+  var multer  = require('multer');
+  var storage = multer.diskStorage({
+      destination: function (req, file, cb) {
+          cb(null, './modules/sharehouses/client/img/house/');
+      },
+      filename: function (req, file, cb) {
+          cb(null, file.originalname);
+      }
+  });
+  var upload = multer({ storage: storage });
 module.exports = function(app) {
+  app.post('/multer', upload.single('file'));
   // Sharehouses Routes
   app.route('/api/sharehouses').all(sharehousesPolicy.isAllowed)
     .get(sharehouses.list)
@@ -15,7 +29,13 @@ module.exports = function(app) {
   app.route('/api/sharehouses/:sharehouseId').all(sharehousesPolicy.isAllowed)
     .get(sharehouses.read)
     .put(sharehouses.update)
-    .delete(sharehouses.delete);
+    .delete(sharehouses.delete)
+    .post(comment.create);
+
+  app.route('/api/saveHouseComment')
+    .post(comment.create);
+  app.route('/api/getHouseComments')
+    .post(comment.list);
 
   // Finish by binding the Sharehouse middleware
   app.param('sharehouseId', sharehouses.sharehouseByID);

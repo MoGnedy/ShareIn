@@ -39,9 +39,9 @@ module.exports = function(app) {
     .delete(sharetools.delete)
     .post(comment.create);
 
-  app.route('/api/comments').all(commentsPolicy.isAllowed)
+  app.route('/api/saveToolComment')
     .post(comment.create);
-  app.route('/api/getComments')
+  app.route('/api/getToolComments')
     .post(comment.list);
 
 

@@ -1,11 +1,11 @@
 <section>
   <div class="page-header">
-    <h1 ng-bind="vm.sharehouse.name"></h1>
+    <h1 ng-bind="vm.sharehouse.Data[0].title"></h1>
   </div>
   <div class="pull-right"
-       ng-show="vm.sharehouse.isCurrentUserOwner">
+       ng-show="vm.sharehouse.Data[0].isCurrentUserOwner">
     <a class="btn btn-primary"
-       ui-sref="sharehouses.edit({ sharehouseId: vm.sharehouse._id })">
+       ui-sref="sharehouses.edit({ sharehouseId: vm.sharehouse.Data[0]._id })">
       <i class="glyphicon glyphicon-edit"></i>
     </a>
     <a class="btn btn-primary" ng-click="vm.remove()">
@@ -17,10 +17,61 @@
       Posted on
       <span ng-bind="vm.sharehouse.created | date:'mediumDate'"></span>
       by
-      <span ng-if="vm.sharehouse.user"
-            ng-bind="vm.sharehouse.user.displayName"></span>
-      <span ng-if="!vm.sharehouse.user">Deleted User</span>
+      <span ng-if="vm.sharehouse.Data[0].user"
+            ng-bind="vm.sharehouse.Data[0].user.displayName"></span>
+      <span ng-if="!vm.sharehouse.Data[0].user">Deleted User</span>
     </em>
   </small>
-  <p class="lead" ng-bind="vm.sharehouse.content"></p>
+  <p class="lead" ng-bind="vm.sharehouse.Data[0].content"></p>
+</section>
+
+<section ng-if="vm.authentication.user">
+  <div class="page-header">
+    <h1>{{vm.comment._id ? 'Edit Comment' : 'New Comment'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.commentForm" class="form-horizontal" ng-submit="vm.saveComment(vm.form.commentForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="comment">Comment</label>
+          <textarea name="name" type="text" ng-model="vm.comment.comment" id="comment" class="form-control" placeholder="comment" required></textarea>
+          <div ng-messages="vm.form.commentForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Comment  is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.comment._id ? 'Update' : 'Comment'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>
+
+<section ng-if="vm.sharehouse.Data[1] == ''  ? false : true">
+  <div class="page-header">
+    <h1>Comments</h1>
+  </div>
+  <div class="list-group" id="comments">
+    <!-- {{vm.sharehouse.Data[1]}} -->
+    <a ng-repeat="comment in vm.sharehouse.Data[1]"
+       ui-sref="sharehouses.view({ sharehouseId: comment._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="comment.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="comment.user" ng-bind="comment.user.displayName"></span>
+        <span ng-if="!comment.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="comment.title"></h4>
+      <p class="list-group-item-text" ng-bind="comment.comment"></p>
+      <img ng-src="{{comment.user.profileImageURL}}" alt="{{comment.title}}" class="header-profile-image" />
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.sharehouses.$resolved && !vm.sharehouses.length">
+    No sharehouses yet, why don't you <a ui-sref="sharehouses.create">create one</a>?
+  </div>
 </section>

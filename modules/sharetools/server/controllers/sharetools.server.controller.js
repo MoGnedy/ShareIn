@@ -138,7 +138,7 @@ exports.sharetoolByID = function(req, res, next, id) {
 
 
   /**
-   * Create a Sharetool
+   * Create a Comment
    */
   exports.createComment = function(req, res) {
     var comment = new Comment(req.body);

@@ -10,11 +10,20 @@ var mongoose = require('mongoose'),
  * Sharehouse Schema
  */
 var SharehouseSchema = new Schema({
-  name: {
+  title: {
     type: String,
     default: '',
-    required: 'Please fill Sharehouse name',
+    required: 'Please fill House title',
     trim: true
+  },
+  content: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  houseImageURL: {
+    type: String,
+    default: 'modules/sharehouses/client/img/house/default.png'
   },
   created: {
     type: Date,

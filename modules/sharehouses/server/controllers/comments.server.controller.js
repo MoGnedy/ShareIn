@@ -6,7 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   // comment = mongoose.model('comment'),
-  _Comment = mongoose.model('ToolsComment'),
+  _Comment = mongoose.model('HousesComment'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -15,11 +15,10 @@ var path = require('path'),
  */
 exports.create = function(req, res) {
   console.log("server");
-  console.log(' ================ Create =======================');
   console.log(req.body);
   var comment = new _Comment(req.body);
   // comment.comment = req.body[0];
-  // comment.toolId = parseDouble(req.body.toolId);
+  // comment.HouseId = parseDouble(req.body.HouseId);
 
   comment.user = req.user;
   // console.log(req.user);
@@ -92,10 +91,10 @@ exports.delete = function(req, res) {
 exports.list = function(req, res) {
   console.log('----------------------------------------------');
   console.log(req.body);
-  // console.log(req.sharetool);
+  // console.log(req.shareHouse);
 
-  // console.log(toolId);
-  _Comment.find({'toolId': req.body}).sort('-created').populate('user').exec(function(err, comments) {
+  // console.log(HouseId);
+  _Comment.find({'houseId': req.body}).sort('-created').populate('user').exec(function(err, comments) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,8 +102,8 @@ exports.list = function(req, res) {
     } else {
       // console.log(comments);
       var commentsArray = comments;
-      var sharetool = req.body;
-      var resData = { Data: [sharetool , commentsArray] };
+      var sharehouse = req.body;
+      var resData = { Data: [sharehouse , commentsArray] };
       console.log(resData);
       res.jsonp(resData);
     }

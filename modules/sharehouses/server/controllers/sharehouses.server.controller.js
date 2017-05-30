@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Sharehouse = mongoose.model('Sharehouse'),
+  _Comment = mongoose.model('HousesComment'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -32,13 +33,24 @@ exports.create = function(req, res) {
  */
 exports.read = function(req, res) {
   // convert mongoose document to JSON
+  var commentsArray;
   var sharehouse = req.sharehouse ? req.sharehouse.toJSON() : {};
-
-  // Add a custom field to the Article, for determining if the current User is the "owner".
-  // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  sharehouse.isCurrentUserOwner = req.user && sharehouse.user && sharehouse.user._id.toString() === req.user._id.toString();
-
-  res.jsonp(sharehouse);
+  if (req.sharehouse){
+    // console.log("comments");
+    _Comment.find({'houseId': req.sharehouse}).sort('-created').populate('user').exec(function(err, comments) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        commentsArray = comments;
+        console.log(sharehouse);
+        sharehouse.isCurrentUserOwner = req.user && sharehouse.user && sharehouse.user._id.toString() === req.user._id.toString();
+        var resData = { Data: [sharehouse , commentsArray] };
+        res.jsonp(resData);
+      }
+    });
+  }
 };
 
 /**
@@ -114,4 +126,37 @@ exports.sharehouseByID = function(req, res, next, id) {
     req.sharehouse = sharehouse;
     next();
   });
+
+
+  /**
+   * Create a Comment
+   */
+  exports.createComment = function(req, res) {
+    var comment = new Comment(req.body);
+    comment.user = req.user;
+
+    comment.save(function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(comment);
+      }
+    });
+  };
+
+
+  module.exports = function (io, socket) {
+    console.log(socket);
+    socket.on('sendHouseComment', function (house) {
+      console.log("server Emit");
+      console.log(house);
+    });
+
+
+  };
+
+
+
 };

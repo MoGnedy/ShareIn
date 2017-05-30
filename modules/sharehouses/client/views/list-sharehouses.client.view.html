@@ -13,7 +13,10 @@
         <span ng-if="sharehouse.user" ng-bind="sharehouse.user.displayName"></span>
         <span ng-if="!sharehouse.user">Deleted User</span>
       </small>
-      <h4 class="list-group-item-heading" ng-bind="sharehouse.name"></h4>
+      <h4 class="list-group-item-heading" ng-bind="sharehouse.title"></h4>
+      <p class="list-group-item-text" ng-bind="sharehouse.content"></p>
+      <img ng-src="{{sharehouse.houseImageURL}}" alt="{{sharehouse.title}}" class="header-profile-image" />
+
     </a>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.sharehouses.$resolved && !vm.sharehouses.length">

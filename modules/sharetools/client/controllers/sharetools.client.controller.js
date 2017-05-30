@@ -13,7 +13,7 @@
 
     vm.authentication = Authentication;
     vm.sharetool = sharetool;
-    vm.sharetoolOS = sharetool;
+    vm.sharetoolObj = sharetool;
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
@@ -26,8 +26,8 @@
     // Remove existing Sharetool
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
-        vm.sharetoolOS._id = vm.sharetool.Data[0]._id;
-        vm.sharetoolOS.$remove($state.go('sharetools.list'));
+        vm.sharetoolObj._id = vm.sharetool.Data[0]._id;
+        vm.sharetoolObj.$remove($state.go('sharetools.list'));
       }
     }
 
@@ -41,35 +41,37 @@
       console.log(vm.myFile);
       // TODO: move create/update logic to service
       if (vm.sharetool.Data[0]._id) {
-        vm.sharetoolOS._id = vm.sharetool.Data[0]._id;
-        vm.sharetoolOS.title = vm.sharetool.Data[0].title;
-        vm.sharetoolOS.content = vm.sharetool.Data[0].content;
-        vm.sharetoolOS.toolImageURL = vm.sharetool.Data[0].toolImageURL;
-        vm.sharetoolOS.$update(successCallback, errorCallback);
+        vm.sharetoolObj._id = vm.sharetool.Data[0]._id;
+        vm.sharetoolObj.title = vm.sharetool.Data[0].title;
+        vm.sharetoolObj.content = vm.sharetool.Data[0].content;
+        vm.sharetoolObj.toolImageURL = vm.sharetool.Data[0].toolImageURL;
+        vm.sharetoolObj.$update(successCallback, errorCallback);
       } else {
-        var imageUrl = './modules/sharetools/client/img/tool/'+vm.myFile.name;
+        var imageUrl = './modules/sharetools/client/img/tool/' + vm.myFile.name;
         console.log(imageUrl);
         var file = vm.myFile;
-         var uploadUrl = "/multer";
-         var fd = new FormData();
-         fd.append('file', file);
-         console.log('before Post');
-         $http.post(uploadUrl,fd, {
-             transformRequest: angular.identity,
-             headers: {'Content-Type': undefined}
-         })
-         .success(function(){
-           console.log("success!!");
-         })
-         .error(function(){
-           console.log("error!!");
-         });
+        var uploadUrl = "/multer";
+        var fd = new FormData();
+        fd.append('file', file);
+        console.log('before Post');
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {
+              'Content-Type': undefined
+            }
+          })
+          .success(function() {
+            console.log("success!!");
+          })
+          .error(function() {
+            console.log("error!!");
+          });
 
-        vm.sharetoolOS.title = vm.sharetool.Data[0].title;
-        vm.sharetoolOS.content = vm.sharetool.Data[0].content;
-        vm.sharetoolOS.toolImageURL = imageUrl;
-        // vm.sharetoolOS.toolImageURL = vm.sharetool.Data[0].toolImageURL;
-        vm.sharetoolOS.$save(successCallback, errorCallback);
+        vm.sharetoolObj.title = vm.sharetool.Data[0].title;
+        vm.sharetoolObj.content = vm.sharetool.Data[0].content;
+        vm.sharetoolObj.toolImageURL = imageUrl;
+        // vm.sharetoolObj.toolImageURL = vm.sharetool.Data[0].toolImageURL;
+        vm.sharetoolObj.$save(successCallback, errorCallback);
       }
 
       function successCallback(res) {
@@ -101,7 +103,7 @@
       } else {
         //  vm.comment.$save(successCallback, errorCallback);
         console.log(vm.sharetool.Data[0]._id);
-        $http.post('api/comments', {
+        $http.post('api/saveToolComment', {
           'comment': vm.comment.comment,
           'toolId': vm.sharetool.Data[0]
         });
@@ -126,7 +128,7 @@
       console.log(vm.sharetool.Data[0]._id);
       console.log(tool_id);
       if (tool_id === vm.sharetool.Data[0]._id) {
-        $http.post('/api/getComments', vm.sharetool.Data[0])
+        $http.post('/api/getToolComments', vm.sharetool.Data[0])
           .success(function(data) {
             vm.sharetool.Data = data.Data;
           })
