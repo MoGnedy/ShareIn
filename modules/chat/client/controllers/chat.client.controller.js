@@ -1,9 +1,10 @@
 'use strict';
 
 // Create the 'chat' controller
-angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$location', 'Authentication', 'Socket', 'privateMessages', '$state',
-  function($scope, $rootScope, $location, Authentication, Socket, privateMessages, $state) {
+angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$location', 'Authentication', 'Socket', 'privateMessages', '$state', 'chatResolve',
+  function($scope, $rootScope, $location, Authentication, Socket, privateMessages, $state, chatResolve) {
     // Create a messages array
+    console.log(chatResolve);
     $scope.messages = [];
     $scope.authentication = Authentication;
     // If user is not signed in then redirect back home
@@ -115,7 +116,8 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
       }
     };
     console.log($state);
-    if ($state.current.name === 'chat.private' && $state.current.url === '/:userId' && $state.params.userId !== '') {
+    // if ($state.current.name === 'chat.private' && $state.current.url === '/:userId' && $state.params.userId !== '') {
+$scope.startPrivateChat = function(){
       privateMessages.getPrivateUser({
         id: $state.params.userId
       }).then(function(res) {
@@ -145,7 +147,7 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
 
       });
 
-    }
+    };
 
     Socket.on('privateMessage', function(msgData) {
       console.log(msgData);

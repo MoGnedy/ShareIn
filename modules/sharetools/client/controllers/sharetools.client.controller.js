@@ -23,6 +23,29 @@
       Socket.connect();
       console.log("ShareTools connected");
     }
+    //maps
+    angular.element(document.querySelector('.mapContainer')).append('<div id="map" style="height:200px;"></div>');
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (pos) {
+        console.log(pos);
+        var uluru = {lat: pos.coords.latitude, lng: pos.coords.longitude};
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 18,
+            center: uluru
+          });
+          var marker = new google.maps.Marker({
+            position: uluru,
+            map: map
+          });
+          map.addListener('click',function (e) {
+            console.log(e);
+            marker.setPosition(e.latLng);
+            map.panTo(marker.getPosition());
+          });
+      });
+    }
+
+
     // Remove existing Sharetool
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {

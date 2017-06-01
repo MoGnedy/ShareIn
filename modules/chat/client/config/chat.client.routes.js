@@ -16,11 +16,21 @@ angular.module('chat').config(['$stateProvider',
         roles: ['user', 'admin']
       }
     })
+    // .state('chat.private', {
+    //   url: '/:userId',
+    //   templateUrl: 'modules/chat/client/views/chat.client.private.view.html',
+    //   data: {
+    //     roles: ['user', 'admin']
+    //   }
+    // });
     .state('chat.private', {
       url: '/:userId',
       templateUrl: 'modules/chat/client/views/chat.client.private.view.html',
-      data: {
-        roles: ['user', 'admin']
+      controller: 'ChatController',
+      resolve: {
+        chatResolve: ['$stateParams', 'privateMessages', function ($stateParams, privateMessages) {
+          return privateMessages.test();
+        }]
       }
     });
 
