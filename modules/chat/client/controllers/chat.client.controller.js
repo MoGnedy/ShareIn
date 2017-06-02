@@ -145,7 +145,7 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
 
       });
 
-    };
+    }
 
     Socket.on('privateMessage', function(msgData) {
       console.log(msgData);
