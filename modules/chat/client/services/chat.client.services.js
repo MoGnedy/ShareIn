@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('chat').factory("privateMessages", function($http, $q, $scope, $rootScope) {
+angular.module('chat').factory("privateMessages", function($http, $q) {
 
   return {
     getPrivateMsgs: function(msgsData) {
@@ -42,37 +42,6 @@ angular.module('chat').factory("privateMessages", function($http, $q, $scope, $r
       });
       return def.promise;
     },
-    test: function() {
-      console.log('test func');
-      $scope.startPrivateChat();
-    },
-
-
   };
 
-});
-
-
-
-angular.module('chat').service('lazyLoadApi', function lazyLoadApi($window, $q) {
-  function loadScript() {
-    console.log('loadScript');
-      // use global document since Angular's $document is weak
-    var s = document.createElement('script');
-    s.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyByYK8e9xjh8ZKNGEoxgeOYVgK_r2Pq1jM';
-    document.body.appendChild(s);
-  }
-  var deferred = $q.defer();
-
-  $window.initMap = function() {
-    deferred.resolve();
-  };
-
-  if ($window.attachEvent) {
-    $window.attachEvent('onload', loadScript);
-  } else {
-    $window.addEventListener('load', loadScript, false);
-  }
-
-  return deferred.promise;
 });
