@@ -124,7 +124,7 @@ exports.sharetoolByID = function(req, res, next, id) {
     });
   }
 
-  Sharetool.findById(id).populate('user', 'displayName').exec(function (err, sharetool) {
+  Sharetool.findById(id).populate('user', 'displayName roles').exec(function (err, sharetool) {
     if (err) {
       return next(err);
     } else if (!sharetool) {

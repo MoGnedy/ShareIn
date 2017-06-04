@@ -2,12 +2,22 @@
   <div class="page-header">
     <h1 ng-bind="vm.sharetool.Data[0].title"></h1>
   </div>
+  {{vm.authentication.user.roles}}
+  {{vm.authentication.user.roles.indexOf('admin') !== -1}}
+  {{vm.stateName}}
+  {{vm.stateName === 'admin.tool'}}
   <div class="pull-right"
-       ng-show="vm.sharetool.Data[0].isCurrentUserOwner">
-    <a class="btn btn-primary"
+       ng-show="vm.sharetool.Data[0].isCurrentUserOwner ? true : vm.authentication.user.roles.indexOf('admin') !== -1">
+    <a class="btn btn-primary" ng-show='vm.stateName !== "admin.tool"'
        ui-sref="sharetools.edit({ sharetoolId: vm.sharetool.Data[0]._id })">
       <i class="glyphicon glyphicon-edit"></i>
     </a>
+    <a class="btn btn-primary" ng-show='vm.stateName === "admin.tool"'
+       ui-sref="admin.tool-edit({ sharetoolId: vm.sharetool.Data[0]._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+
+
     <a class="btn btn-primary" ng-click="vm.remove()">
       <i class="glyphicon glyphicon-trash"></i>
     </a>

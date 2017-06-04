@@ -8,9 +8,10 @@
 
   SharetoolsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'sharetoolResolve', '$http', '$compile', 'Socket'];
 
-  function SharetoolsController($scope, $state, $window, Authentication, sharetool, $http, $compile, Socket) {
+  function SharetoolsController($scope, $state, $window, Authentication, sharetool, $http, $compile, Socket, sharetoolResolve) {
     var vm = this;
-
+    vm.stateName = $state.current.name;
+    console.log($state.current.name);
     vm.authentication = Authentication;
     vm.sharetool = sharetool;
     vm.sharetoolObj = sharetool;
@@ -24,33 +25,38 @@
       console.log("ShareTools connected");
     }
     //maps
-    angular.element(document.querySelector('.mapContainer')).append('<div id="map" style="height:200px;"></div>');
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (pos) {
-        console.log(pos);
-        var uluru = {lat: pos.coords.latitude, lng: pos.coords.longitude};
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 18,
-            center: uluru
-          });
-          var marker = new google.maps.Marker({
-            position: uluru,
-            map: map
-          });
-          map.addListener('click',function (e) {
-            console.log(e);
-            marker.setPosition(e.latLng);
-            map.panTo(marker.getPosition());
-          });
-      });
-    }
+    // angular.element(document.querySelector('.mapContainer')).append('<div id="map" style="height:200px;"></div>');
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition(function (pos) {
+    //     console.log(pos);
+    //     var uluru = {lat: pos.coords.latitude, lng: pos.coords.longitude};
+    //     var map = new google.maps.Map(document.getElementById('map'), {
+    //         zoom: 18,
+    //         center: uluru
+    //       });
+    //       var marker = new google.maps.Marker({
+    //         position: uluru,
+    //         map: map
+    //       });
+    //       map.addListener('click',function (e) {
+    //         console.log(e);
+    //         marker.setPosition(e.latLng);
+    //         map.panTo(marker.getPosition());
+    //       });
+    //   });
+    // }
 
 
     // Remove existing Sharetool
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
         vm.sharetoolObj._id = vm.sharetool.Data[0]._id;
-        vm.sharetoolObj.$remove($state.go('sharetools.list'));
+        vm.sharetoolObj.$remove();
+        if (vm.stateName === 'admin.tool'){
+          $state.go('admin.tools');
+        }else{
+          $state.go('sharetools.list');
+        }
       }
     }
 
