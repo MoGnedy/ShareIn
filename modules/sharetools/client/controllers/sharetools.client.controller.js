@@ -76,6 +76,7 @@
         vm.sharetoolObj.toolImageURL = vm.sharetool.Data[0].toolImageURL;
         vm.sharetoolObj.$update(successCallback, errorCallback);
       } else {
+        if (vm.myFile){
         var imageUrl = './modules/sharetools/client/img/tool/' + vm.myFile.name;
         console.log(imageUrl);
         var file = vm.myFile;
@@ -88,6 +89,7 @@
             headers: {
               'Content-Type': undefined
             }
+
           })
           .success(function() {
             console.log("success!!");
@@ -95,18 +97,26 @@
           .error(function() {
             console.log("error!!");
           });
+          vm.sharetoolObj.toolImageURL = imageUrl;
 
+        }
         vm.sharetoolObj.title = vm.sharetool.Data[0].title;
         vm.sharetoolObj.content = vm.sharetool.Data[0].content;
-        vm.sharetoolObj.toolImageURL = imageUrl;
         // vm.sharetoolObj.toolImageURL = vm.sharetool.Data[0].toolImageURL;
         vm.sharetoolObj.$save(successCallback, errorCallback);
       }
 
       function successCallback(res) {
-        $state.go('sharetools.view', {
-          sharetoolId: res._id
-        });
+        if (vm.stateName === 'admin.tool-create'){
+          $state.go('admin.tool', {
+            sharetoolId: res._id
+          });
+        }else{
+          $state.go('sharetools.view', {
+            sharetoolId: res._id
+          });
+        }
+
       }
 
       function errorCallback(res) {
@@ -154,6 +164,7 @@
 
 
     Socket.on('UpdateToolComments', function(tool_id) {
+      console.log(vm.sharetool);
       console.log(vm.sharetool.Data[0]._id);
       console.log(tool_id);
       if (tool_id === vm.sharetool.Data[0]._id) {

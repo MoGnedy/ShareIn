@@ -20,13 +20,6 @@ angular.module('users.admin.routes').config(['$stateProvider',
         data: {
           pageTitle: 'Sharetool {{ sharetoolResolve.title }}'
         }
-        // resolve: {
-        //   sharetoolResolve: ['$stateParams', 'Tool', function ($stateParams, User) {
-        //     return Tool.get({
-        //       toolId: $stateParams.toolId
-        //     });
-        //   }]
-        // }
       })
       .state('admin.tool-edit', {
         url: '/tools/:sharetoolId/edit',
@@ -39,14 +32,17 @@ angular.module('users.admin.routes').config(['$stateProvider',
         data: {
           pageTitle: 'Sharetool {{ sharetoolResolve.title }}'
         }
-        // resolve: {
-        //   userResolve: ['$stateParams', 'Admin', function ($stateParams, Admin) {
-        //     return Admin.get({
-        //       userId: $stateParams.userId
-        //     });
-        //   }]
-        // }
+      })
+      .state('admin.tool-create', {
+        url: '/tools/create',
+        templateUrl: 'modules/sharetools/client/views/form-sharetool.client.view.html',
+        controller: 'SharetoolsController',
+        controllerAs: 'vm',
+        resolve: {
+          sharetoolResolve: newSharetool
+        }
       });
+
   }
 ]);
 getSharetool.$inject = ['$stateParams', 'SharetoolsService'];
@@ -55,4 +51,9 @@ function getSharetool($stateParams, SharetoolsService) {
   return SharetoolsService.get({
     sharetoolId: $stateParams.sharetoolId
   }).$promise;
+}
+newSharetool.$inject = ['SharetoolsService'];
+
+function newSharetool(SharetoolsService) {
+  return new SharetoolsService();
 }
