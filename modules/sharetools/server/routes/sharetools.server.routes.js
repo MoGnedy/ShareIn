@@ -33,6 +33,10 @@ module.exports = function(app) {
     .get(sharetools.list)
     .post(sharetools.create);
 
+  app.route('/api/sharetools/latest').all(sharetoolsPolicy.isAllowed)
+      .get(sharetools.listLatest);
+
+
   app.route('/api/sharetools/:sharetoolId').all(sharetoolsPolicy.isAllowed)
     .get(sharetools.read)
     .put(sharetools.update)
@@ -44,6 +48,7 @@ module.exports = function(app) {
   app.route('/api/getToolComments')
     .post(comment.list);
 
+  // app.route('/api/sharetools/create');
 
   // Finish by binding the Sharetool middleware
   app.param('sharetoolId', sharetools.sharetoolByID);

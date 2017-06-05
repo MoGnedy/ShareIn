@@ -29,6 +29,10 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/sharetools/:sharetoolId',
       permissions: ['get']
+    },
+    {
+      resources: '/api/sharetools/latest',
+      permissions: ['get']
     }]
   }, {
     roles: ['guest'],
@@ -37,6 +41,10 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }, {
       resources: '/api/sharetools/:sharetoolId',
+      permissions: ['get']
+    },
+    {
+      resources: '/api/sharetools/latest',
       permissions: ['get']
     }]
   }]);

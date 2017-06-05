@@ -1,7 +1,9 @@
 <section>
   <div class="page-header">
-    <h1>Sharetools</h1>
+    <h1>Tools</h1>
   </div>
+  <button type="button" class="btn btn-large btn-block btn-success" ui-sref="sharetools.create" >Add New Tool</button>
+
   <div class="list-group">
     <a ng-repeat="sharetool in vm.sharetools"
        ui-sref="sharetools.view({ sharetoolId: sharetool._id })"

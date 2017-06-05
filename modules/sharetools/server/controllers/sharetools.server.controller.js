@@ -113,6 +113,18 @@ exports.list = function(req, res) {
   });
 };
 
+exports.listLatest = function(req, res) {
+  Sharetool.find().sort('-created').limit(3).populate('user', 'displayName').exec(function(err, sharetools) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(sharetools);
+    }
+  });
+};
+
 /**
  * Sharetool middleware
  */
@@ -155,6 +167,10 @@ exports.sharetoolByID = function(req, res, next, id) {
     });
   };
 
+  exports.nothingAdmin = function(req, res) {
+    var status = [];
+    res.jsonp(status);
+  };
 
   module.exports = function (io, socket) {
     console.log(socket);
@@ -167,6 +183,7 @@ exports.sharetoolByID = function(req, res, next, id) {
 
 
   };
+
 
 
 };

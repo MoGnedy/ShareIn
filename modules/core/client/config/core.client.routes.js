@@ -15,7 +15,8 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
     $stateProvider
     .state('home', {
       url: '/',
-      templateUrl: 'modules/core/client/views/home.client.view.html'
+      templateUrl: 'modules/core/client/views/home.client.view.html',
+      css: ['modules/core/client/css/custom-styles.css','modules/core/client/css/image-effects.css','modules/core/client/css/normalize.css','modules/core/client/css/component.css','modules/core/client/css/font-awesome-ie7.css','modules/core/client/css/font-awesome.css']
     })
     .state('not-found', {
       url: '/not-found',

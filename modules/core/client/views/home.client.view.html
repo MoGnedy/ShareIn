@@ -1,84 +1,124 @@
 <section ng-controller="HomeController">
-  <div class="jumbotron text-center">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
-        <img alt="MEAN.JS" class="img-responsive text-center" src="modules/core/client/img/brand/logo.png" />
+    <script src="public/js/html5shiv.js"></script>
+      <script src="public/js/respond.min.js"></script>
+    <script src="public/js/modernizr.custom.js"></script>
+     <div class="container page-styling">
+    <div class="header-wrapper">
+      <div class="site-name">
+        <h1>ShareIn</h1>
+      </div>
+      <p></p>
+      <div class="banner">
+          <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="modules/core/client/img/banner-img.jpg" alt="" class="">
+      <div class="carousel-caption">
+          <i class="fw-icon-pencil"></i>
+        <h2>Corem ipsum</h2>
+        <h1>sit amet vivamus</h1>
+        <a href="#" class="btn"> more info</a>
       </div>
     </div>
-    <br>
-    <div class="row">
-      <p class="lead">
-        Open-Source Full-Stack Solution For MEAN Applications
-      </p>
+    <div class="item">
+      <img src="modules/core/client/img/banner-img.jpg" alt="">
+      <div class="carousel-caption">
+          <i class="fw-icon-pencil"></i>
+        <h2>Corem ipsum</h2>
+        <h1>sit amet vivamus</h1>
+        <a href="#" class="btn"> more info</a>
+      </div>
     </div>
-    <div class="row">
-      <p>
-        <a class="btn btn-primary btn-lg" href="http://meanjs.org" target="_blank">Learn more</a>
-      </p>
-    </div>
-  </div>
-  <div>
-    <h2>Congrats! You've configured and run the sample application.</h2>
-    <p>MEAN.JS is a web application boilerplate, which means you should start changing everything :-)</p>
-    <p>This sample application tracks users and articles.</p>
-    <ul>
-      <li>
-        Click
-        <em>Sign Up</em> to get started.
-      </li>
-      <li>
-        Configure your app to work with your social accounts, by editing the
-        <em>/config/env/*.js</em> files.
-      </li>
-      <li>
-        Edit your users module.
-      </li>
-      <li>
-        Add new CRUD modules.
-      </li>
-      <li>
-        Have fun...
-      </li>
-    </ul>
-  </div>
-  <div class="row">
-    <div class="col-md-3">
-      <h2><strong>M</strong>ongoDB</h2>
-      <p><a target="_blank" href="http://mongodb.org/">MongoDB</a> is a NoSQL database. MongoDB's <a target="_blank" href="http://docs.mongodb.org/manual/">great manual</a> is the place to get started with NoSQL and MongoDB.</p>
-    </div>
-    <div class="col-md-3">
-      <h2><strong>E</strong>xpress</h2>
-      <p><a target="_blank" href="http://expressjs.com/"> Express</a> is a NodeJS server-side application web framework. Check out <a target="_blank" href="http://expressjs.com/4x/api.html">The ExpressJS API reference for more information</a> or <a target="_blank" href="http://stackoverflow.com/questions/8144214/learning-express-for-node-js">StackOverflow</a> for more info.</p>
-    </div>
-    <div class="col-md-3">
-      <h2><strong>A</strong>ngularJS</h2>
-      <p><a target="_blank" href="http://angularjs.org/">AngularJS</a> is client-side web application framework. The <a target="_blank" href="http://www.thinkster.io/">Thinkster Popular Guide</a> and <a target="_blank" href="https://egghead.io/">Egghead Videos</a> are great resources.</p>
-    </div>
-    <div class="col-md-3">
-      <h2><strong>N</strong>ode.js</h2>
-      <p><a target="_blank" href="http://nodejs.org/">Node.js</a> is a JavaScript run-time, popular for being a web server platform. Node's website and this <a target="_blank" href="http://stackoverflow.com/questions/2353818/how-do-i-get-started-with-node-js">stackOverflow thread</a> offer excellent starting points to get to grasps with node.</p>
+    <div class="item">
+      <img src="modules/core/client/img/banner-img.jpg" alt="">
+      <div class="carousel-caption">
+          <i class="fw-icon-pencil"></i>
+        <h2>Corem ipsum</h2>
+        <h1>sit amet vivamus</h1>
+        <a href="#" class="btn"> more info</a>
+      </div>
     </div>
   </div>
-  <div class="well">
-    <h2>MEAN.JS Documentation</h2>
-    <p>
-      Once you're familiar with the foundation technology, check out the MEAN.JS Documentation:
-      <ul>
-        <li><a target="_blank" href="http://meanjs.org/docs.html">MEAN.JS Documentation</a>
-        </li>
-        <!-- <li><a target="_blank" href="http://meanjs.org/generator.html">Yeoman Generator</a>
-				</li> -->
-        <li><a target="_blank" href="http://meanjs.org/modules.html">Modules</a>
-        </li>
-        <li><a target="_blank" href="http://meanjs.org/changelog.html">Changelog</a>
-        </li>
-        <li><a target="_blank" href="http://meanjs.org/community.html">Community</a>
-        </li>
-        <li><a target="_blank" href="http://blog.meanjs.org">Blog</a>
-        </li>
-      </ul>
-    </p>
-  </div>
-  <br>Enjoy &amp; Keep Us Updated,
-  <br>The MEAN.JS Team.
+
+  <!-- Controls -->
+  <!-- data-slide="prev" -->
+  <a class="left carousel-control" href="#carousel-example-generic"  >
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <!-- data-slide="next" -->
+  <a class="right carousel-control" href="#carousel-example-generic"  >
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+</div>
+      </div>
+      <div class="content-wrap">
+      </div>
+      <div class="lines">
+        <div class="more-btn">
+          <a href="#" class="btn">Tools</a>
+        </div>
+      </div>
+      <div class="ruler"></div>
+      <div class="content-wrap centering">
+              <h1>Latest Posts</h1>
+
+        <div class="featured-items">
+          <ul  id="grid" >
+            <li ng-repeat="tool in latestTools">
+              <div class="item">
+            <h5>{{tool.title}}</h5>
+          <div class="grow">
+            <img
+            src="{{tool.toolImageURL}}" alt="{{tool.title}}">
+           </div>
+            <p>{{tool.content}}</p>
+            <p><a ui-sref="sharetools.view({ sharetoolId: tool._id })" class="more">more info <i class="fw-icon-chevron-right"></i></a></p>
+          </div>
+            </li>
+
+          </ul>
+
+
+
+        </div>
+        </div>
+		<div class="ruler"></div>
+
+
+
+
+    </div><!-- /container -->
+
+    <div class="container">
+	<div class="copy-rights">
+		Copyright(c) website ShareIn.<br>
+	</div>
+	</div>
+
+
+
+
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="public/js/jquery-1.9.1.js"></script>
+    <script src="public/js/bootstrap.js"></script>
+    <script src="public/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+     <script src="public/js/masonry.pkgd.min.js"></script>
+    <script src="public/js/imagesloaded.js"></script>
+    <script src="public/js/classie.js"></script>
+    <script src="public/js/AnimOnScroll.js"></script>
+
+    <script>
+      new AnimOnScroll( document.getElementById( 'grid' ), {
+        minDuration : 0.4,
+        maxDuration : 0.7,
+        viewportFactor : 0.2
+      } );
+    </script>
+
 </section>
