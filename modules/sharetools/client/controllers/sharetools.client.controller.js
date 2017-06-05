@@ -76,11 +76,13 @@
         vm.sharetoolObj.toolImageURL = vm.sharetool.Data[0].toolImageURL;
         vm.sharetoolObj.$update(successCallback, errorCallback);
       } else {
+            var imageUrl;
+        console.log(vm.myFile);
         if (vm.myFile){
-        var imageUrl = './modules/sharetools/client/img/tool/' + vm.myFile.name;
+          imageUrl = './modules/sharetools/client/img/tool/' + vm.myFile.name;
         console.log(imageUrl);
         var file = vm.myFile;
-        var uploadUrl = "/multer";
+        var uploadUrl = "/multerTool";
         var fd = new FormData();
         fd.append('file', file);
         console.log('before Post');
@@ -97,12 +99,14 @@
           .error(function() {
             console.log("error!!");
           });
-          vm.sharetoolObj.toolImageURL = imageUrl;
 
+        }
+        if (vm.myFile){
+          console.log('tmam');
+          vm.sharetoolObj.toolImageURL = imageUrl;
         }
         vm.sharetoolObj.title = vm.sharetool.Data[0].title;
         vm.sharetoolObj.content = vm.sharetool.Data[0].content;
-        // vm.sharetoolObj.toolImageURL = vm.sharetool.Data[0].toolImageURL;
         vm.sharetoolObj.$save(successCallback, errorCallback);
       }
 

@@ -10,7 +10,8 @@
 
   function SharehousesController($scope, $state, $window, Authentication, sharehouse, $http, $compile, Socket) {
     var vm = this;
-
+    vm.stateName = $state.current.name;
+    console.log($state.current.name);
     vm.authentication = Authentication;
     vm.sharehouse = sharehouse;
     vm.sharehouseObj = sharehouse;
@@ -28,7 +29,12 @@
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
         vm.sharehouseObj._id = vm.sharehouse.Data[0]._id;
-        vm.sharehouseObj.$remove($state.go('sharehouses.list'));
+        vm.sharehouseObj.$remove();
+        if (vm.stateName === 'admin.house'){
+          $state.go('admin.houses');
+        }else{
+          $state.go('sharehouses.list');
+        }
       }
     }
 
@@ -50,7 +56,7 @@
         var imageUrl = './modules/sharehouses/client/img/house/' + vm.myFile.name;
         console.log(imageUrl);
         var file = vm.myFile;
-        var uploadUrl = "/multer";
+        var uploadUrl = "/multerHouse";
         var fd = new FormData();
         fd.append('file', file);
         console.log('before Post');

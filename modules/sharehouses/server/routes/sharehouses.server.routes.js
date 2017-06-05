@@ -10,7 +10,7 @@ var sharehousesPolicy = require('../policies/sharehouses.server.policy'),
 
 
   var multer  = require('multer');
-  var storage = multer.diskStorage({
+  var houseStorage = multer.diskStorage({
       destination: function (req, file, cb) {
           cb(null, './modules/sharehouses/client/img/house/');
       },
@@ -18,9 +18,9 @@ var sharehousesPolicy = require('../policies/sharehouses.server.policy'),
           cb(null, file.originalname);
       }
   });
-  var upload = multer({ storage: storage });
+  var uploadHouseImage = multer({ storage: houseStorage });
 module.exports = function(app) {
-  app.post('/multer', upload.single('file'));
+  app.post('/multerHouse', uploadHouseImage.single('file'));
   // Sharehouses Routes
   app.route('/api/sharehouses').all(sharehousesPolicy.isAllowed)
     .get(sharehouses.list)
