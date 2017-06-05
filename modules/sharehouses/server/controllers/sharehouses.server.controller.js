@@ -104,6 +104,19 @@ exports.list = function(req, res) {
   });
 };
 
+exports.listLatest = function(req, res) {
+  Sharehouse.find().sort('-created').limit(3).populate('user', 'displayName').exec(function(err, sharehouses) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(sharehouses);
+    }
+  });
+};
+
+
 /**
  * Sharehouse middleware
  */

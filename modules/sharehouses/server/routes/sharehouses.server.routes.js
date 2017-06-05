@@ -26,6 +26,10 @@ module.exports = function(app) {
     .get(sharehouses.list)
     .post(sharehouses.create);
 
+  app.route('/api/sharesharehouses/latest').all(sharehousesPolicy.isAllowed)
+      .get(sharehouses.listLatest);
+
+
   app.route('/api/sharehouses/:sharehouseId').all(sharehousesPolicy.isAllowed)
     .get(sharehouses.read)
     .put(sharehouses.update)

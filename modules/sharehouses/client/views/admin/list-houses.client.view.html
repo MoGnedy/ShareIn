@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-md-4">
+        <h1>Houses</h1>
+      </div>
+      <button type="button" class="btn btn-large btn-block btn-success" ui-sref="admin.house-create" >Add New House</button>
+      <div class="col-md-4" style="margin-top: 2em">
+        <input class="form-control col-md-4" type="text" ng-model="search" placeholder="Search" ng-change="figureOutItemsToDisplay()" />
+      </div>
+    </div>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="house in pagedItems" ui-sref="admin.house({sharehouseId: house._id})" class="list-group-item">
+      <h4 class="list-group-item-heading" ng-bind="house.title"></h4>
+      <p class="list-group-item-text pull-right small" ng-bind="house.user.displayName"></p>
+      <p class="list-group-item-text" ng-bind="house.created"></p>
+    </a>
+  </div>
+
+  <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+</section>
