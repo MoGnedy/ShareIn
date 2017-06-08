@@ -1,3 +1,4 @@
+
 'use strict';
 
 /**
@@ -10,22 +11,54 @@ var mongoose = require('mongoose'),
  * Comment Schema
  */
 var PrivatMsgSchema = new Schema({
-  private_code: {
-    type: String,
-    trim: true
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User'
   },
   created: {
     type: Date,
     default: Date.now
   },
-  user: {
-    type: Schema.ObjectId,
-    ref: 'User'
-  },
-  private_message: {
-    type: String,
-    trim: true
-  }
+  // updated: {
+  //   type: Date,
+  //   default: Date.now
+  // },
+  allMessages:[{
+                  user: {
+                    type: Schema.ObjectId,
+                    ref: 'User'
+                  },
+                  updated: {
+                    type: Date,
+                    default: Date.now
+                  },
+                  messages:
+                              [
+                                {user: {
+                                  type: Schema.ObjectId,
+                                  ref: 'User'
+                                },
+                                message: {
+                                  type: String,
+                                  trim: true
+                                },
+                                created: {
+                                  type: Date,
+                                  default: Date.now
+                                }
+                              }
+                            ],
+            }]
+
+  // },
+  // user: {
+  //   type: Schema.ObjectId,
+  //   ref: 'User'
+  // },
+  // private_message: {
+  //   type: String,
+  //   trim: true
+  // }
 });
 
 mongoose.model('PrivatMsg', PrivatMsgSchema);

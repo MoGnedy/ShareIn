@@ -16,21 +16,407 @@ var path = require('path'),
  */
 exports.create = function(req, res) {
   console.log("Chat server.create");
-  console.log(req.body);
-  if (req.body.private_code) {
-    var privatMsg = new _PrivatMsg(req.body);
-    privatMsg.user = req.user;
-    privatMsg.save(function(err) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
+
+  _PrivatMsg.find({
+    user: req.user
+  }).exec(function(err, obj) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      console.log("------------ Private User Object -----------------");
+      console.log(obj);
+      if (obj.length) {
+        // if it is not the first message
+        console.log(obj);
+        _PrivatMsg.find({
+          user: req.user,
+          allMessages: {
+            $elemMatch: {
+              user: req.body.receiver
+            }
+          }
+        }).exec(function(err, obj) {
+          if (err) {
+            return res.status(400).send({
+              message: errorHandler.getErrorMessage(err)
+            });
+          } else {
+            console.log("------------ Private messages array -----------------");
+            console.log('user : ', obj);
+            // console.log(req.body.receiver);
+            console.log('---------------------------');
+            // console.log(req.user);
+            console.log('------------------------------');
+            if (obj.length) {
+              console.log('receiver : ', req.body.receiver);
+              console.log('sender : ', req.user);
+              var pushedMessage = _PrivatMsg.findOneAndUpdate({
+                user: req.user,
+                allMessages: {
+                  $elemMatch: {
+                    user: req.body.receiver
+                  }
+                }
+              }, {
+                $push: {
+                  'allMessages.$.messages': {
+                    'user': req.user,
+                    'message': req.body.private_message
+                  }
+                }
+              }).exec(function(err, object) {
+                if (err) {
+                  return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                  });
+                } else {
+                  console.log('success');
+                  console.log(object);
+                  console.log(pushedMessage);
+
+
+
+                  //Save to another user
+                  _PrivatMsg.find({
+                    user: req.body.receiver
+                  }).exec(function(err, recObj) {
+                    if (err) {
+                      return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                      });
+                    } else {
+                      console.log("++++++++++++++++++++++++++++++++");
+                      console.log(recObj);
+                      console.log(recObj.length);
+                      if (recObj.length) {
+                        _PrivatMsg.find({
+                          user: req.body.receiver,
+                          allMessages: {
+                            $elemMatch: {
+                              user: req.user
+                            }
+                          }
+                        }).exec(function(err, resObj) {
+                          if (err) {
+                            return res.status(400).send({
+                              message: errorHandler.getErrorMessage(err)
+                            });
+                          } else {
+                            console.log("+++++++++++++++++++ save ++++++++++++++++");
+                            if (resObj.length) {
+
+                              _PrivatMsg.findOneAndUpdate({
+                                user: req.body.receiver,
+                                allMessages: {
+                                  $elemMatch: {
+                                    user: req.user
+                                  }
+                                }
+                              }, {
+                                $push: {
+                                  'allMessages.$.messages': {
+                                    'user': req.user,
+                                    'message': req.body.private_message
+                                  }
+                                }
+                              }).exec(function(err, resObj) {
+                                if (err) {
+                                  return res.status(400).send({
+                                    message: errorHandler.getErrorMessage(err)
+                                  });
+                                } else {
+                                  console.log("+++++++++++++++++ Object ++++++++++++");
+                                  console.log(resObj);
+                                  console.log('success');
+
+
+
+                                }
+                              });
+
+
+                            } else {
+
+                              _PrivatMsg.findOneAndUpdate({
+                                "user": req.body.receiver
+                              }, {
+                                $push: {
+                                  'allMessages': {
+                                    'user': req.user,
+                                    'messages': [{
+                                      'user': req.user,
+                                      'message': req.body.private_message
+                                    }]
+                                  }
+                                }
+                              }).exec(function(err, object) {
+                                if (err) {
+                                  return res.status(400).send({
+                                    message: errorHandler.getErrorMessage(err)
+                                  });
+                                } else {
+                                  console.log('success');
+                                }
+                              });
+
+
+                            }
+                          }
+                        });
+
+
+
+                      } else {
+
+                        var recPrivatMsg = new _PrivatMsg();
+                        recPrivatMsg.user = req.body.receiver;
+                        var allmessages = {
+                          'user': req.user,
+                          'messages': [{
+                            'user': req.user,
+                            'message': req.body.private_message
+                          }]
+                        };
+                        recPrivatMsg.allMessages.push(allmessages);
+                        recPrivatMsg.save(function(err) {
+                          if (err) {
+                            return res.status(400).send({
+                              message: errorHandler.getErrorMessage(err)
+                            });
+                          } else {
+                            console.log(recPrivatMsg);
+
+                          }
+                        });
+
+
+
+                      }
+
+
+                    }
+                  });
+
+
+
+
+
+
+
+
+
+                  res.jsonp(pushedMessage);
+
+                }
+              });
+              console.log(obj);
+              // obj[0].allMessages.push(message);
+              // obj.save();
+            } else {
+
+              console.log("notFound");
+
+              var newPushedMessage = _PrivatMsg.findOneAndUpdate({
+                "user": req.user
+              }, {
+                $push: {
+                  'allMessages': {
+                    'user': req.body.receiver,
+                    'messages': [{
+                      'user': req.user,
+                      'message': req.body.private_message
+                    }]
+                  }
+                }
+              }).exec(function(err, object) {
+                if (err) {
+                  return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                  });
+                } else {
+                  console.log('success');
+                  console.log(object);
+                  res.jsonp(newPushedMessage);
+
+                }
+              });
+
+
+
+            }
+          }
         });
+
+
       } else {
-        console.log(privatMsg);
-        res.jsonp(privatMsg);
+        // if it is the first message
+        console.log("notFound");
+        var privatMsg = new _PrivatMsg();
+        privatMsg.user = req.user;
+        var allmessages = {
+          'user': req.body.receiver,
+          'messages': [{
+            'user': req.user,
+            'message': req.body.private_message
+          }]
+        };
+        privatMsg.allMessages.push(allmessages);
+        privatMsg.save(function(err) {
+          if (err) {
+            return res.status(400).send({
+              message: errorHandler.getErrorMessage(err)
+            });
+          } else {
+            console.log(privatMsg);
+
+
+            console.log("+++++++++++++++++++++++++ Save msg to the other user ++++++++++++++++++++++");
+
+
+
+
+            //Save to another user
+            _PrivatMsg.find({
+              user: req.body.receiver
+            }).exec(function(err, recObj) {
+              if (err) {
+                return res.status(400).send({
+                  message: errorHandler.getErrorMessage(err)
+                });
+              } else {
+                console.log("++++++++++++++++++++++++++++++++");
+                console.log(recObj);
+                console.log(recObj.length);
+                if (recObj.length) {
+                  _PrivatMsg.find({
+                    user: req.body.receiver,
+                    allMessages: {
+                      $elemMatch: {
+                        user: req.user
+                      }
+                    }
+                  }).exec(function(err, resObj) {
+                    if (err) {
+                      return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                      });
+                    } else {
+                      console.log("+++++++++++++++++++ save ++++++++++++++++");
+                      if (resObj.length) {
+
+                        _PrivatMsg.findOneAndUpdate({
+                          user: req.body.receiver,
+                          allMessages: {
+                            $elemMatch: {
+                              user: req.user
+                            }
+                          }
+                        }, {
+                          $push: {
+                            'allMessages.$.messages': {
+                              'user': req.user,
+                              'message': req.body.private_message
+                            }
+                          }
+                        }).exec(function(err, resObj) {
+                          if (err) {
+                            return res.status(400).send({
+                              message: errorHandler.getErrorMessage(err)
+                            });
+                          } else {
+                            console.log("+++++++++++++++++ Object ++++++++++++");
+                            console.log(resObj);
+                            console.log('success');
+
+
+
+                          }
+                        });
+
+
+                      } else {
+
+                        _PrivatMsg.findOneAndUpdate({
+                          "user": req.body.receiver
+                        }, {
+                          $push: {
+                            'allMessages': {
+                              'user': req.user,
+                              'messages': [{
+                                'user': req.user,
+                                'message': req.body.private_message
+                              }]
+                            }
+                          }
+                        }).exec(function(err, object) {
+                          if (err) {
+                            return res.status(400).send({
+                              message: errorHandler.getErrorMessage(err)
+                            });
+                          } else {
+                            console.log('success');
+                          }
+                        });
+
+
+                      }
+                    }
+                  });
+
+
+
+                } else {
+
+                  var recPrivatMsg = new _PrivatMsg();
+                  recPrivatMsg.user = req.body.receiver;
+                  var allmessages = {
+                    'user': req.user,
+                    'messages': [{
+                      'user': req.user,
+                      'message': req.body.private_message
+                    }]
+                  };
+                  recPrivatMsg.allMessages.push(allmessages);
+                  recPrivatMsg.save(function(err) {
+                    if (err) {
+                      return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                      });
+                    } else {
+                      console.log(recPrivatMsg);
+
+                    }
+                  });
+
+
+
+                }
+
+
+              }
+            });
+
+
+
+
+
+
+            res.jsonp(privatMsg);
+          }
+        });
+
+
+
+
+
+
       }
-    });
-  }
+    }
+  });
+
+
 };
 
 /**
@@ -87,12 +473,17 @@ exports.delete = function(req, res) {
  * List of privatMsgs
  */
 exports.list = function(req, res) {
-  console.log('----------------------------------------------');
+  console.log('------------------list----------------------------');
   console.log(req.body);
-  if (req.body.private_code) {
+  if (req.body) {
     _PrivatMsg.find({
-      'private_code': req.body.private_code
-    }).sort('-created').populate('user').exec(function(err, privatMsgs) {
+      user: req.user,
+      allMessages: {
+        $elemMatch: {
+          user: req.body
+        }
+      }
+    }).populate('allMessages.messages.user').exec(function(err, privatMsgs) {
       if (err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
@@ -103,7 +494,7 @@ exports.list = function(req, res) {
         var privatMsgsArray = privatMsgs;
         // var sharetool = req.body;
         // var resData = {
-          // Data: [sharetool, privatMsgsArray]
+        // Data: [sharetool, privatMsgsArray]
         // };
         console.log(privatMsgs);
         res.jsonp(privatMsgs);
@@ -125,8 +516,12 @@ exports.getPrivateUser = function(req, res) {
         });
       } else {
         console.log("------------ Private User messages -----------------");
-        console.log(user);
-        res.jsonp(user);
+        console.log(user[0]);
+        console.log(user[0].password);
+        delete user[0].password;
+        delete user[0].salt;
+        console.log(user[0]);
+        res.jsonp(user[0]);
       }
     });
   }

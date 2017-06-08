@@ -47,11 +47,11 @@
   <div class="list-group" id="privateMessages">
     <!-- {{vm.sharetool.Data[1]}} -->
     <a ng-repeat="message in privateMessages track by $index"
-       ui-sref="sharetools.view({ sharetoolId: comment._id })"
+       ui-sref="sharetools.view({ sharetoolId: message._id })"
        class="list-group-item">
       <small class="list-group-item-text">
         Posted on
-        <span ng-bind="comment.created | date:'mediumDate'"></span>
+        <span ng-bind="message.date | date:'mediumDate'"></span>
         by
         <span ng-if="message" ng-bind="message.displayName"></span>
         <span ng-if="!message">Deleted User</span>
