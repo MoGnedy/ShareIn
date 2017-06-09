@@ -115,6 +115,9 @@ exports.create = function(req, res) {
                                   }
                                 }
                               }, {
+                                $set: {
+                                  'allMessages.$.updated': new Date().toISOString()
+                                },
                                 $push: {
                                   'allMessages.$.messages': {
                                     'user': req.user,
@@ -476,13 +479,14 @@ exports.list = function(req, res) {
   console.log('------------------list----------------------------');
   console.log(req.body);
   if (req.body) {
-    _PrivatMsg.find({
-      user: req.user,
+    _PrivatMsg.findOne(
+      {user: req.user},{
       allMessages: {
         $elemMatch: {
           user: req.body
         }
       }
+
     }).populate('allMessages.messages.user').exec(function(err, privatMsgs) {
       if (err) {
         return res.status(400).send({
@@ -491,12 +495,12 @@ exports.list = function(req, res) {
       } else {
         console.log("------------ Private messages -----------------");
         console.log(privatMsgs);
-        var privatMsgsArray = privatMsgs;
+        // var privatMsgsArray = privatMsgs;
         // var sharetool = req.body;
         // var resData = {
         // Data: [sharetool, privatMsgsArray]
         // };
-        console.log(privatMsgs);
+        // console.log(privatMsgs);
         res.jsonp(privatMsgs);
       }
     });
@@ -525,6 +529,47 @@ exports.getPrivateUser = function(req, res) {
       }
     });
   }
+};
+
+exports.getConvsMsgs = function(req,res) {
+
+  _PrivatMsg.find({
+    user: req.user
+  }).populate('allMessages.user').populate('allMessages.messages.user').exec(function(err, resData) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      var latesMsgs = [];
+      // console.log(resData);
+      if (resData && resData[0] && resData[0].allMessages){
+      var msgsArray = resData[0].allMessages;
+      console.log(msgsArray);
+
+      console.log(msgsArray.length);
+     for (var i = 0 ; i < msgsArray.length ; i++){
+      latesMsgs.push({'convWith': msgsArray[i].user,'msgData': msgsArray[i].messages[msgsArray[i].messages.length - 1]});
+       console.log('==========================================');
+       console.log(i);
+       console.log(latesMsgs);
+     }
+    latesMsgs.sort(function(a, b){
+    var keyA = new Date(a.created),
+        keyB = new Date(b.created);
+    // Compare the 2 dates
+    if(keyA < keyB) return 1;
+    if(keyA > keyB) return -1;
+    return 0;
+});
+    console.log(latesMsgs);
+}else{
+  console.log("no Convs");
+}
+res.jsonp(latesMsgs);
+
+    }
+  });
 };
 
 /**

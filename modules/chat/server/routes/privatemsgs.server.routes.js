@@ -4,17 +4,19 @@
  * Module dependencies
  */
 // var commentsPolicy = require('../policies/comments.server.policy'),
-   var privatMsg = require('../controllers/privatemsgs.server.controller');
+   var privateMsg = require('../controllers/privatemsgs.server.controller');
 
 
 module.exports = function(app) {
 
   app.route('/api/savePrivateMsg')
-    .post(privatMsg.create);
+    .post(privateMsg.create);
   app.route('/api/getPrivatemsgs')
-    .post(privatMsg.list);
+    .post(privateMsg.list);
   app.route('/api/getPrivateUser')
-    .post(privatMsg.getPrivateUser);
+    .post(privateMsg.getPrivateUser);
+  app.route('/api/getConvsMsgs')
+    .get(privateMsg.getConvsMsgs);
 
 
 

@@ -42,6 +42,18 @@ angular.module('chat').factory("privateMessages", function($http, $q) {
       });
       return def.promise;
     },
+    getConvsMsgs: function() {
+      var def = $q.defer();
+      $http({
+        "url": "/api/getConvsMsgs",
+        "method": "get",
+      }).then(function(res) {
+        def.resolve(res.data);
+      }, function(err) {
+        def.reject(err.data);
+      });
+      return def.promise;
+    },
   };
 
 });

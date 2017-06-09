@@ -6,7 +6,11 @@
 
   <ul class="item-divider">Online Users
     <li>
-    <input type='button'  ng-repeat="(key, value) in onlineUsers" ng-if="value.username != authentication.user.username" id="{{value._id}}" username="{{value.username}}" value='{{value.username}}' private-msg  >
+    <!-- <input type='button'  ng-repeat="(key, value) in onlineUsers" ng-if="value.username != authentication.user.username" id="{{value._id}}" username="{{value.username}}" value='{{value.username}}' private-msg  > -->
+    <a  ng-repeat="(key, value) in onlineUsers" ng-if="value.username != authentication.user.username" ui-sref="chat.private({ userId: value._id })"  >
+{{value.username}}
+    </a>
+
 
     </li>
   </ul>
@@ -54,5 +58,47 @@
     </li>
   </ul>
 </section>
+
+
+
+
+<section ng-if="convs == ''  ? false : true">
+  <div class="page-header">
+    <!-- <h1>convs</h1> -->
+  </div>
+  <div class="list-group" id="convs">
+    <!-- {{vm.sharetool.Data[1]}} -->
+    <a ng-repeat="conv in convs"
+       ui-sref="chat.private({ userId: conv.convWith._id })"
+       class="list-group-item">
+
+
+       <h1>{{conv.convWith.displayName}}
+       </h1>
+       
+       <div class="pull-right">
+          <button type="button"
+
+          ng-class="onlineUsersUsernames.indexOf(conv.convWith.username) !== -1 ? 'btn btn-success' : 'btn btn-danger'  ">
+          <i class="glyphicon glyphicon-flash"></i></button>
+
+       </div>
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="conv.msgData.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="conv.msgData.user" ng-bind="conv.msgData.user.displayName"></span>
+        <span ng-if="!conv.msgData.user">Deleted User</span>
+      </small>
+      <!-- <h4 class="list-group-item-heading" ng-bind="conv.title"></h4> -->
+      <p class="list-group-item-text" ng-bind="conv.msgData.message"></p>
+      <img ng-src="{{conv.msgData.user.profileImageURL}}" alt="{{conv.msgData.user.displayName}}" class="header-profile-image" />
+    </a>
+  </div>
+  <!-- <div class="alert alert-warning text-center" ng-if="vm.sharetools.$resolved && !vm.sharetools.length">
+    No Sharetools yet, why don't you <a ui-sref="sharetools.create">create one</a>?
+  </div> -->
+</section>
+
 </div>
 </div>

@@ -45,7 +45,12 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
 
 
     Socket.on('onlineUsers', function(onlineUsers) {
+      $rootScope.onlineUsersUsernames =[];
       $rootScope.onlineUsers = onlineUsers;
+      for (var i in onlineUsers){
+        $rootScope.onlineUsersUsernames.push(onlineUsers[i].username);
+      }
+      console.log($rootScope.onlineUsersUsernames);
     });
 
 
@@ -57,11 +62,11 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
       $rootScope.privateMessages = [];
       privateMessages.getPrivateMsgs(receiver).then(function(res) {
         console.log(res);
-        console.log(res[0] && !res.status);
-        if (res[0] && !res.status) {
+        console.log(res && !res.status);
+        if (res && !res.status) {
           console.log('true');
-          console.log(res[0].allMessages[0].messages);
-          var msgsArray = res[0].allMessages[0].messages.reverse();
+          console.log(res.allMessages[0].messages);
+          var msgsArray = res.allMessages[0].messages.reverse();
           for (var i in msgsArray) {
             $rootScope.privateMessages.push({
               'displayName': msgsArray[i].user.displayName,
@@ -98,7 +103,7 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
             'receiver': $rootScope.privateUserName.username,
             'message': $scope.privateText,
             'sender': $scope.authentication.user.username,
-            'date': res.created
+              'date':  new Date()
           };
           console.log(messageData);
           if (res && !res.status) {
@@ -108,7 +113,8 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
             $rootScope.privateMessages.unshift({
               'displayName': $scope.authentication.user.displayName,
               'profileImageURL': $scope.authentication.user.profileImageURL,
-              'message': $scope.privateText
+              'message': $scope.privateText,
+              'date': new Date()
             });
             $scope.privateText = '';
           } else {
@@ -120,39 +126,28 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
       }
     };
     console.log($state);
+    console.log($state.current.name);
+    console.log($state.current.url);
     if ($state.current.name === 'chat.private' && $state.current.url === '/:userId' && $state.params.userId !== '') {
       privateMessages.getPrivateUser({
         id: $state.params.userId
       }).then(function(res) {
-        // console.log(res[0].username);
-        // var private_code = '';
         console.log(res);
         if (res && res.username && !res.status) {
           delete res.password;
           delete res.salt;
           console.log(res);
 
-        //   if ($rootScope.privateUserName && $rootScope.privateUserName !== res[0].username || !$rootScope.private_code) {
             $rootScope.privateUserName = res;
             $scope.receiverUser = res.displayName;
-            // var TwoNames = [Authentication.user.username, $rootScope.privateUserName].sort();
-          //   var code = TwoNames[0] + "(#Private#)" + TwoNames[1];
-          //   console.log(TwoNames);
-          //   for (var i = 0; i < code.length; i++) {
-          //     private_code += code.charCodeAt(i);
-          //   }
-          // } else {
-          //   console.log('else');
-          //   private_code = $rootScope.private_code;
-          // }
-          // $rootScope.private_code = private_code;
-          // console.log($rootScope.private_code);
-          // console.log(private_code);
+
           $rootScope.user_privateMsg(res);
         } else {
           console.log("no messages");
         }
 
+      },function(err){
+        $state.go('not-found');
       });
 
     }
@@ -162,6 +157,27 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
       $scope.privateMessages.unshift(msgData);
 
     });
+
+    if ($state.current.name === 'chat.all' && $state.current.url === '' ) {
+
+
+      privateMessages.getConvsMsgs().then(function(res) {
+        console.log(res);
+        if (res && !res.status) {
+          $scope.convs = res;
+        } else {
+          console.log("no Convs");
+        }
+
+      },function(err){
+        $state.go('not-found');
+      });
+
+
+
+
+    }
+
 
   }
 ]);
