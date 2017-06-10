@@ -16,20 +16,19 @@ angular.module('core').factory("homeServices", function($http, $q) {
         def.reject(err.data);
       });
       return def.promise;
+    },
+    getLatestHouses: function() {
+      var def = $q.defer();
+      $http({
+        "url": "/api/sharehouses/latest",
+        "method": "get",
+      }).then(function(res) {
+        def.resolve(res.data);
+      }, function(err) {
+        def.reject(err.data);
+      });
+      return def.promise;
     }
-    // ,
-    // getLatestHouses: function() {
-    //   var def = $q.defer();
-    //   $http({
-    //     "url": "/api/sharehouses/latest",
-    //     "method": "get",
-    //   }).then(function(res) {
-    //     def.resolve(res.data);
-    //   }, function(err) {
-    //     def.reject(err.data);
-    //   });
-    //   return def.promise;
-    // }
   };
 
 });
