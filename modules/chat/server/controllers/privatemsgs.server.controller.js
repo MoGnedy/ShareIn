@@ -602,7 +602,7 @@ exports.removeConv = function(req, res) {
         // Data: [sharetool, privatMsgsArray]
         // };
         // console.log(privatMsgs);
-        // res.jsonp(privatMsgs);
+        res.jsonp(1);
       }
     });
   }

@@ -179,16 +179,17 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
     }
 
 
-    $scope.convRemove = function(user) {
+    $scope.convRemove = function(user,i) {
       console.log(user);
       // console.log(angular.element(document.querySelector('#'+user._id)));
-      // angular.element(document.querySelector('#'+user._id)).remove();
+      // angular.element(document.querySelector('#\\'+user._id)).remove();
       privateMessages.renoveConv(user).then(function(res) {
         console.log(res);
 
         if (res && !res.status) {
 
-
+          $scope.convs.splice(i,1);
+          $scope.$apply();
         } else {
           console.log("send error");
         }

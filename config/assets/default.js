@@ -18,8 +18,7 @@ module.exports = {
         'public/lib/angular-file-upload/angular-file-upload.js',
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
         'public/lib/ng-file-upload-shim/ng-file-upload-shim.min.js',
-        'public/lib/ng-file-upload/ng-file-upload.min.js',
-        // 'https://maps.googleapis.com/maps/api/js?key=AIzaSyByYK8e9xjh8ZKNGEoxgeOYVgK_r2Pq1jM'
+        'public/lib/ng-file-upload/ng-file-upload.min.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

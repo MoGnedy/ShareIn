@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users.admin').controller('UserController', ['$scope', '$state', 'Authentication', 'userResolve',
-  function ($scope, $state, Authentication, userResolve) {
+angular.module('users.admin').controller('UserController', ['$scope', '$state', 'Authentication', 'userResolve', 'getUser',
+  function ($scope, $state, Authentication, userResolve, getUser) {
     $scope.authentication = Authentication;
     $scope.user = userResolve;
 
@@ -36,5 +36,26 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
         $scope.error = errorResponse.data.message;
       });
     };
+
+    if ($state.current.name === "userProfile" && $state.current.url === "/user/:userId"){
+
+
+      getUser.getUserData({
+        id: $state.params.userId
+      }).then(function(res) {
+        if (res && !res.status){
+        console.log(res);
+
+        } else {
+
+        }
+
+      },function(err){
+        $state.go('not-found');
+      });
+
+
+    };
+
   }
 ]);

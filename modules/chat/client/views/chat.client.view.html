@@ -29,13 +29,13 @@
   </div>
   <div class="col-md-9">
 
-<section class="container" >
+<!-- <section class="container" >
   <div class="page-header">
-    <h1>Chat Example</h1>
+    <h1>Chat Example</h1> -->
     <!-- {{onlineUsers}} -->
-  </div>
+  <!-- </div> -->
   <!-- The message form -->
-  <form class="col-xs-12 col-md-offset-4 col-md-4" ng-submit="sendMessage();">
+  <!-- <form class="col-xs-12 col-md-offset-4 col-md-4" ng-submit="sendMessage();">
     <fieldset class="row">
       <div class="input-group">
         <input type="text" id="messageText" name="messageText" class="form-control" ng-model="messageText" placeholder="Enter new message">
@@ -44,10 +44,10 @@
         </span>
       </div>
     </fieldset>
-  </form>
-  <ul class="list-unstyled">
+  </form> -->
+  <!-- <ul class="list-unstyled"> -->
     <!-- List all messages -->
-    <li class="col-xs-12 col-md-offset-4 col-md-4 chat-message" ng-repeat="message in messages">
+    <!-- <li class="col-xs-12 col-md-offset-4 col-md-4 chat-message" ng-repeat="message in messages">
       <small class="pull-right text-muted" ng-bind="message.created | date:'mediumTime'"></small>
       <img ng-src="{{message.profileImageURL}}" alt="{{message.username}}" class="pull-left chat-profile-image" />
       <div class="pull-left chat-message-details">
@@ -57,7 +57,7 @@
       </div>
     </li>
   </ul>
-</section>
+</section> -->
 
 
 
@@ -66,7 +66,7 @@
 
   <div class="list-group" id="convs">
     <!-- {{vm.sharetool.Data[1]}} -->
-    <div class="list-group-item" ng-repeat="conv in convs" id='conv.convWith._id' >
+    <div class="list-group-item" ng-repeat="conv in convs" id='{{conv.convWith._id}}' >
 
 
 
@@ -78,7 +78,7 @@
        <h1> <a ui-sref="userProfile({userId: conv.convWith._id})"> {{conv.convWith.displayName}} </a>
        </h1>
        <div class="pull-right">
-         <a class="btn btn-primary" ng-click="convRemove(conv.convWith)">
+         <a class="btn btn-primary" ng-click="convRemove(conv.convWith,$index)">
            <i class="glyphicon glyphicon-trash"></i>
          </a>
        </div>

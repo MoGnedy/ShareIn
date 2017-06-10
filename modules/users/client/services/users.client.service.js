@@ -35,3 +35,23 @@ angular.module('users').factory('User', ['$resource',
     });
   }
 ]);
+
+
+angular.module('users.admin').factory("getUser", function($http, $q) {
+  return {
+    getUserData: function(id) {
+      var def = $q.defer();
+      $http({
+        "url": "/api/getPrivateUser",
+        "method": "post",
+        "data": id
+      }).then(function(res) {
+        def.resolve(res.data);
+      }, function(err) {
+        def.reject(err.data);
+      });
+      return def.promise;
+    }
+  };
+
+});
