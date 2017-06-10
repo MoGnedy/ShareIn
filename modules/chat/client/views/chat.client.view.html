@@ -63,19 +63,28 @@
 
 
 <section ng-if="convs == ''  ? false : true">
-  <div class="page-header">
-    <!-- <h1>convs</h1> -->
-  </div>
+
   <div class="list-group" id="convs">
     <!-- {{vm.sharetool.Data[1]}} -->
-    <a ng-repeat="conv in convs"
-       ui-sref="chat.private({ userId: conv.convWith._id })"
-       class="list-group-item">
+    <div class="list-group-item" ng-repeat="conv in convs" id='conv.convWith._id' >
 
 
-       <h1>{{conv.convWith.displayName}}
+
+
+
+
+
+
+       <h1> <a ui-sref="userProfile({userId: conv.convWith._id})"> {{conv.convWith.displayName}} </a>
        </h1>
-       
+       <div class="pull-right">
+         <a class="btn btn-primary" ng-click="convRemove(conv.convWith)">
+           <i class="glyphicon glyphicon-trash"></i>
+         </a>
+       </div>
+       <a
+          ui-sref="chat.private({ userId: conv.convWith._id })"
+          >
        <div class="pull-right">
           <button type="button"
 
@@ -83,6 +92,7 @@
           <i class="glyphicon glyphicon-flash"></i></button>
 
        </div>
+
       <small class="list-group-item-text">
         Posted on
         <span ng-bind="conv.msgData.created | date:'mediumDate'"></span>
@@ -98,6 +108,7 @@
   <!-- <div class="alert alert-warning text-center" ng-if="vm.sharetools.$resolved && !vm.sharetools.length">
     No Sharetools yet, why don't you <a ui-sref="sharetools.create">create one</a>?
   </div> -->
+
 </section>
 
 </div>

@@ -17,6 +17,13 @@ module.exports = function(app) {
     .post(privateMsg.getPrivateUser);
   app.route('/api/getConvsMsgs')
     .get(privateMsg.getConvsMsgs);
+  app.route('/api/removeConv')
+    .post(privateMsg.removeConv);
+
+
+
+
+
 
 
 

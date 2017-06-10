@@ -219,10 +219,10 @@ exports.create = function(req, res) {
               // obj.save();
             } else {
 
-              console.log("notFound");
+              console.log("notFound 222");
 
               var newPushedMessage = _PrivatMsg.findOneAndUpdate({
-                "user": req.user
+                user: req.user
               }, {
                 $push: {
                   'allMessages': {
@@ -549,6 +549,8 @@ exports.getConvsMsgs = function(req,res) {
 
       console.log(msgsArray.length);
      for (var i = 0 ; i < msgsArray.length ; i++){
+       delete msgsArray[i].user.password;
+       delete msgsArray[i].user.salt;
       latesMsgs.push({'convWith': msgsArray[i].user,'msgData': msgsArray[i].messages[msgsArray[i].messages.length - 1]});
        console.log('==========================================');
        console.log(i);
@@ -571,6 +573,46 @@ res.jsonp(latesMsgs);
     }
   });
 };
+
+
+
+
+
+
+exports.removeConv = function(req, res) {
+  console.log('------------------list----------------------------');
+  if (req.body) {
+    var removedConv = _PrivatMsg.update(
+      {user: req.user},
+      { $pull: { allMessages: { user: req.body._id } } }
+      // {$pull: { allMessages.$.user: req.body }}
+
+
+    ).exec(function(err, privatMsgs) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        console.log("------------ Private messages -----------------");
+        console.log(removedConv);
+        // var privatMsgsArray = privatMsgs;
+        // var sharetool = req.body;
+        // var resData = {
+        // Data: [sharetool, privatMsgsArray]
+        // };
+        // console.log(privatMsgs);
+        // res.jsonp(privatMsgs);
+      }
+    });
+  }
+};
+
+
+
+
+
+
 
 /**
  * privatMsg middleware

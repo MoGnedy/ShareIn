@@ -63,7 +63,7 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
       privateMessages.getPrivateMsgs(receiver).then(function(res) {
         console.log(res);
         console.log(res && !res.status);
-        if (res && !res.status) {
+        if (res && res.allMessages && res.allMessages[0] && res.allMessages[0].messages && !res.status) {
           console.log('true');
           console.log(res.allMessages[0].messages);
           var msgsArray = res.allMessages[0].messages.reverse();
@@ -91,7 +91,7 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
     $scope.sendPrivate = function() {
       if ($scope.privateText && $scope.privateText !== '') {
         var privateMessageData = {
-          'private_code': $rootScope.private_code,
+          // 'private_code': $rootScope.private_code,
           'receiver': $rootScope.privateUserName,
           'private_message': $scope.privateText
         };
@@ -177,6 +177,28 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
 
 
     }
+
+
+    $scope.convRemove = function(user) {
+      console.log(user);
+      // console.log(angular.element(document.querySelector('#'+user._id)));
+      // angular.element(document.querySelector('#'+user._id)).remove();
+      privateMessages.renoveConv(user).then(function(res) {
+        console.log(res);
+
+        if (res && !res.status) {
+
+
+        } else {
+          console.log("send error");
+        }
+
+
+      });
+
+
+
+    };
 
 
   }
