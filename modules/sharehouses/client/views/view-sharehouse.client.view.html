@@ -9,7 +9,8 @@
   <fieldset >
       <fieldset >
   <div class="pull-right"
-       ng-show="vm.sharehouse.Data[0].isCurrentUserOwner">
+  ng-show="vm.sharehouse.Data[0].isCurrentUserOwner ? true : vm.authentication.user && vm.authentication.user.roles.indexOf('admin') !== -1">  
+
     <a class="btn btn-primary"
        ui-sref="sharehouses.edit({ sharehouseId: vm.sharehouse.Data[0]._id })">
       <i class="glyphicon glyphicon-edit"></i>

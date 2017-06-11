@@ -12,7 +12,7 @@
   <div class="form-style-3">
     <fieldset >
   <div class="pull-right"
-       ng-show="vm.sharetool.Data[0].isCurrentUserOwner ? true : vm.authentication.user.roles.indexOf('admin') !== -1">
+  ng-show="vm.sharetool.Data[0].isCurrentUserOwner ? true : vm.authentication.user && vm.authentication.user.roles.indexOf('admin') !== -1">  
     <a class="btn btn-primary" ng-show='vm.stateName !== "admin.tool"'
        ui-sref="sharetools.edit({ sharetoolId: vm.sharetool.Data[0]._id })">
       <i class="glyphicon glyphicon-edit"></i>
