@@ -479,8 +479,9 @@ exports.list = function(req, res) {
   console.log('------------------list----------------------------');
   console.log(req.body);
   if (req.body) {
-    _PrivatMsg.findOne(
-      {user: req.user},{
+    _PrivatMsg.findOne({
+      user: req.user
+    }, {
       allMessages: {
         $elemMatch: {
           user: req.body
@@ -495,12 +496,7 @@ exports.list = function(req, res) {
       } else {
         console.log("------------ Private messages -----------------");
         console.log(privatMsgs);
-        // var privatMsgsArray = privatMsgs;
-        // var sharetool = req.body;
-        // var resData = {
-        // Data: [sharetool, privatMsgsArray]
-        // };
-        // console.log(privatMsgs);
+
         res.jsonp(privatMsgs);
       }
     });
@@ -531,7 +527,7 @@ exports.getPrivateUser = function(req, res) {
   }
 };
 
-exports.getConvsMsgs = function(req,res) {
+exports.getConvsMsgs = function(req, res) {
 
   _PrivatMsg.find({
     user: req.user
@@ -543,32 +539,35 @@ exports.getConvsMsgs = function(req,res) {
     } else {
       var latesMsgs = [];
       // console.log(resData);
-      if (resData && resData[0] && resData[0].allMessages){
-      var msgsArray = resData[0].allMessages;
-      console.log(msgsArray);
+      if (resData && resData[0] && resData[0].allMessages) {
+        var msgsArray = resData[0].allMessages;
+        console.log(msgsArray);
 
-      console.log(msgsArray.length);
-     for (var i = 0 ; i < msgsArray.length ; i++){
-       delete msgsArray[i].user.password;
-       delete msgsArray[i].user.salt;
-      latesMsgs.push({'convWith': msgsArray[i].user,'msgData': msgsArray[i].messages[msgsArray[i].messages.length - 1]});
-       console.log('==========================================');
-       console.log(i);
-       console.log(latesMsgs);
-     }
-    latesMsgs.sort(function(a, b){
-    var keyA = new Date(a.created),
-        keyB = new Date(b.created);
-    // Compare the 2 dates
-    if(keyA < keyB) return 1;
-    if(keyA > keyB) return -1;
-    return 0;
-});
-    console.log(latesMsgs);
-}else{
-  console.log("no Convs");
-}
-res.jsonp(latesMsgs);
+        console.log(msgsArray.length);
+        for (var i = 0; i < msgsArray.length; i++) {
+          delete msgsArray[i].user.password;
+          delete msgsArray[i].user.salt;
+          latesMsgs.push({
+            'convWith': msgsArray[i].user,
+            'msgData': msgsArray[i].messages[msgsArray[i].messages.length - 1]
+          });
+          console.log('==========================================');
+          console.log(i);
+          console.log(latesMsgs);
+        }
+        latesMsgs.sort(function(a, b) {
+          var keyA = new Date(a.created),
+            keyB = new Date(b.created);
+          // Compare the 2 dates
+          if (keyA < keyB) return 1;
+          if (keyA > keyB) return -1;
+          return 0;
+        });
+        console.log(latesMsgs);
+      } else {
+        console.log("no Convs");
+      }
+      res.jsonp(latesMsgs);
 
     }
   });
@@ -582,9 +581,15 @@ res.jsonp(latesMsgs);
 exports.removeConv = function(req, res) {
   console.log('------------------list----------------------------');
   if (req.body) {
-    var removedConv = _PrivatMsg.update(
-      {user: req.user},
-      { $pull: { allMessages: { user: req.body._id } } }
+    var removedConv = _PrivatMsg.update({
+        user: req.user
+      }, {
+        $pull: {
+          allMessages: {
+            user: req.body._id
+          }
+        }
+      }
       // {$pull: { allMessages.$.user: req.body }}
 
 
@@ -596,12 +601,37 @@ exports.removeConv = function(req, res) {
       } else {
         console.log("------------ Private messages -----------------");
         console.log(removedConv);
-        // var privatMsgsArray = privatMsgs;
-        // var sharetool = req.body;
-        // var resData = {
-        // Data: [sharetool, privatMsgsArray]
-        // };
-        // console.log(privatMsgs);
+        res.jsonp(1);
+      }
+    });
+  }
+};
+
+
+
+exports.removeMsg = function(req, res) {
+  console.log('------------------list----------------------------');
+  console.log(req.body.user);
+  if (req.body) {
+    var removedMsg = _PrivatMsg.update({
+        user: req.user
+      }, {
+        $pull: {
+          "allMessages.0.messages": {
+            "_id": req.body._id
+          }
+        }
+      }
+
+    ).exec(function(err, privatMsgs) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        console.log("------------ Private messages -----------------");
+        console.log(removedMsg);
+
         res.jsonp(1);
       }
     });

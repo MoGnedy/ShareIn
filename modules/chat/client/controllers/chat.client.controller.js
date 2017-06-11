@@ -1,8 +1,8 @@
 'use strict';
 
 // Create the 'chat' controller
-angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$location', 'Authentication', 'Socket', 'privateMessages', '$state',
-  function($scope, $rootScope, $location, Authentication, Socket, privateMessages, $state) {
+angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$location', 'Authentication', 'Socket', 'privateMessages', '$state', '$window',
+  function($scope, $rootScope, $location, Authentication, Socket, privateMessages, $state, $window) {
     // Create a messages array
     $scope.messages = [];
     $scope.authentication = Authentication;
@@ -45,9 +45,9 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
 
 
     Socket.on('onlineUsers', function(onlineUsers) {
-      $rootScope.onlineUsersUsernames =[];
+      $rootScope.onlineUsersUsernames = [];
       $rootScope.onlineUsers = onlineUsers;
-      for (var i in onlineUsers){
+      for (var i in onlineUsers) {
         $rootScope.onlineUsersUsernames.push(onlineUsers[i].username);
       }
       console.log($rootScope.onlineUsersUsernames);
@@ -72,7 +72,8 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
               'displayName': msgsArray[i].user.displayName,
               'profileImageURL': msgsArray[i].user.profileImageURL,
               'message': msgsArray[i].message,
-              'date':msgsArray[i].created
+              'msg_id':msgsArray[i]._id,
+              'date': msgsArray[i].created
             });
             console.log(msgsArray[i].user);
           }
@@ -103,7 +104,7 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
             'receiver': $rootScope.privateUserName.username,
             'message': $scope.privateText,
             'sender': $scope.authentication.user.username,
-              'date':  new Date()
+            'date': new Date()
           };
           console.log(messageData);
           if (res && !res.status) {
@@ -138,15 +139,15 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
           delete res.salt;
           console.log(res);
 
-            $rootScope.privateUserName = res;
-            $scope.receiverUser = res.displayName;
+          $rootScope.privateUserName = res;
+          $scope.receiverUser = res.displayName;
 
           $rootScope.user_privateMsg(res);
         } else {
           console.log("no messages");
         }
 
-      },function(err){
+      }, function(err) {
         $state.go('not-found');
       });
 
@@ -158,7 +159,7 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
 
     });
 
-    if ($state.current.name === 'chat.all' && $state.current.url === '' ) {
+    if ($state.current.name === 'chat.all' && $state.current.url === '') {
 
 
       privateMessages.getConvsMsgs().then(function(res) {
@@ -169,7 +170,7 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
           console.log("no Convs");
         }
 
-      },function(err){
+      }, function(err) {
         $state.go('not-found');
       });
 
@@ -179,27 +180,56 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
     }
 
 
-    $scope.convRemove = function(user,i) {
+    $scope.convRemove = function(user, i) {
       console.log(user);
       // console.log(angular.element(document.querySelector('#'+user._id)));
       // angular.element(document.querySelector('#\\'+user._id)).remove();
-      privateMessages.renoveConv(user).then(function(res) {
-        console.log(res);
+      if ($window.confirm('Are you sure you want to delete?')) {
+        privateMessages.removeConv(user).then(function(res) {
+          console.log(res);
 
-        if (res && !res.status) {
+          if (res && !res.status) {
 
-          $scope.convs.splice(i,1);
-          $scope.$apply();
-        } else {
-          console.log("send error");
-        }
-
-
-      });
+            $scope.convs.splice(i, 1);
+            $scope.$apply();
+          } else {
+            console.log("send error");
+          }
 
 
+
+        });
+
+      }
 
     };
+
+    $scope.msgRemove = function(msg_id, i) {
+      console.log(msg_id);
+      console.log($rootScope.privateUserName);
+      // console.log(angular.element(document.querySelector('#'+user._id)));
+      // angular.element(document.querySelector('#\\'+user._id)).remove();
+      if ($window.confirm('Are you sure you want to delete?')) {
+        var msgData = {'_id':msg_id, 'user':$rootScope.privateUserName}
+        privateMessages.removeMsg(msgData).then(function(res) {
+          console.log(res);
+
+          if (res && !res.status) {
+
+            $rootScope.privateMessages.splice(i, 1);
+            // $rootScope.$apply();
+          } else {
+            console.log("send error");
+          }
+
+
+        });
+
+      }
+
+    };
+
+
 
 
   }

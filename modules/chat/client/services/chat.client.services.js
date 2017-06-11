@@ -54,12 +54,25 @@ angular.module('chat').factory("privateMessages", function($http, $q) {
       });
       return def.promise;
     },
-    renoveConv: function(user) {
+    removeConv: function(user) {
       var def = $q.defer();
       $http({
         "url": "/api/removeConv",
         "method": "post",
         "data": user,
+      }).then(function(res) {
+        def.resolve(res.data);
+      }, function(err) {
+        def.reject(err.data);
+      });
+      return def.promise;
+    },
+    removeMsg: function(msgData) {
+      var def = $q.defer();
+      $http({
+        "url": "/api/removeMsg",
+        "method": "post",
+        "data": msgData,
       }).then(function(res) {
         def.resolve(res.data);
       }, function(err) {

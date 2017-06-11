@@ -2,12 +2,9 @@
   <div class="page-header">
     <h1 ng-bind="vm.sharetool.Data[0].title"></h1>
   </div>
-  {{vm.authentication.user.roles}}
-  {{vm.authentication.user.roles.indexOf('admin') !== -1}}
-  {{vm.stateName}}
-  {{vm.stateName === 'admin.tool'}}
+
   <div class="pull-right"
-       ng-show="vm.sharetool.Data[0].isCurrentUserOwner ? true : vm.authentication.user.roles.indexOf('admin') !== -1">
+       ng-show="vm.sharetool.Data[0].isCurrentUserOwner ? true : vm.authentication.user && vm.authentication.user.roles.indexOf('admin') !== -1">
     <a class="btn btn-primary" ng-show='vm.stateName !== "admin.tool"'
        ui-sref="sharetools.edit({ sharetoolId: vm.sharetool.Data[0]._id })">
       <i class="glyphicon glyphicon-edit"></i>
@@ -66,8 +63,7 @@
   </div>
   <div class="list-group" id="comments">
     <!-- {{vm.sharetool.Data[1]}} -->
-    <a ng-repeat="comment in vm.sharetool.Data[1]"
-       ui-sref="sharetools.view({ sharetoolId: comment._id })"
+    <div ng-repeat="comment in vm.sharetool.Data[1]"
        class="list-group-item">
       <small class="list-group-item-text">
         Posted on
@@ -79,7 +75,7 @@
       <h4 class="list-group-item-heading" ng-bind="comment.title"></h4>
       <p class="list-group-item-text" ng-bind="comment.comment"></p>
       <img ng-src="{{comment.user.profileImageURL}}" alt="{{comment.title}}" class="header-profile-image" />
-    </a>
+    </div>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.sharetools.$resolved && !vm.sharetools.length">
     No Sharetools yet, why don't you <a ui-sref="sharetools.create">create one</a>?
