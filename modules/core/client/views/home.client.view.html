@@ -5,67 +5,106 @@
      <div class="container page-styling">
     <div class="header-wrapper">
       <div class="site-name">
-        <h1>ShareIn</h1>
+      <image src="modules/core/client/img/brand/111.png" class="img-responsive" style="height:150px;width:150px;"/>
       </div>
       <p></p>
-      <div class="banner">
-          <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner">
-    <div class="item active">
-      <img src="modules/core/client/img/banner-img.jpg" alt="" class="">
-      <div class="carousel-caption">
-          <i class="fw-icon-pencil"></i>
-        <h2>Corem ipsum</h2>
-        <h1>sit amet vivamus</h1>
-        <a href="#" class="btn"> more info</a>
-      </div>
-    </div>
-    <div class="item">
-      <img src="modules/core/client/img/banner-img.jpg" alt="">
-      <div class="carousel-caption">
-          <i class="fw-icon-pencil"></i>
-        <h2>Corem ipsum</h2>
-        <h1>sit amet vivamus</h1>
-        <a href="#" class="btn"> more info</a>
-      </div>
-    </div>
-    <div class="item">
-      <img src="modules/core/client/img/banner-img.jpg" alt="">
-      <div class="carousel-caption">
-          <i class="fw-icon-pencil"></i>
-        <h2>Corem ipsum</h2>
-        <h1>sit amet vivamus</h1>
-        <a href="#" class="btn"> more info</a>
-      </div>
-    </div>
-  </div>
+      <div class="form-style-3">
+        <fieldset >
+          <div class="banner">
+            <carousel>
+      <slide>
+        <img src="modules/core/client/img/brand/1.jpg" style="margin:auto;">
+        <div class="carousel-caption">
+          <p>Beautiful!</p>
+        </div>
+      </slide>
+      <slide>
+        <img src="modules/core/client/img/brand/3.jpg" style="margin:auto;">
+        <div class="carousel-caption">
+          <p>D'aww!</p>
+        </div>
+      </slide>
+    </carousel>              <!-- <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="modules/core/client/img/brand/1.jpg" alt="" class="">
+          <div class="carousel-caption">
+              <i class="fw-icon-pencil"></i>
+            <h2>Corem ipsum</h2>
+            <h1>sit amet vivamus</h1>
+            <a href="#" class="btn"> more info</a>
+          </div>
+        </div>
+        <div class="item">
+          <img src="modules/core/client/img/brand/house.jpg" alt="">
+          <div class="carousel-caption">
+              <i class="fw-icon-pencil"></i>
+            <h2>Corem ipsum</h2>
+            <h1>sit amet vivamus</h1>
+            <a href="#" class="btn"> more info</a>
+          </div>
+        </div>
+        <div class="item">
+          <img src="modules/core/client/img/brand/sum.jpg" alt="">
+          <div class="carousel-caption">
+              <i class="fw-icon-pencil"></i>
+            <h2>Corem ipsum</h2>
+            <h1>sit amet vivamus</h1>
+            <a href="#" class="btn"> more info</a>
+          </div>
+        </div>
+      </div> -->
 
-  <!-- Controls -->
-  <!-- data-slide="prev" -->
-  <a class="left carousel-control" href="#carousel-example-generic"  >
-    <span class="glyphicon glyphicon-chevron-left"></span>
-  </a>
-  <!-- data-slide="next" -->
-  <a class="right carousel-control" href="#carousel-example-generic"  >
-    <span class="glyphicon glyphicon-chevron-right"></span>
-  </a>
-</div>
-      </div>
-      <div class="content-wrap">
-      </div>
+      <!-- Controls -->
+      <!-- <a ng-non-bindable class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a ng-non-bindable class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a> -->
+      <!-- </div> -->
+          <!-- </div> -->
+      <p></p>
       <div class="lines">
         <div class="more-btn">
-          <a href="#" class="btn">Tools</a>
+          <div class="btn">Services</div>
         </div>
       </div>
-      <div class="ruler"></div>
+      <div class="content-wrap">
+<div class="row">
+ <a ui-sref="sharetools.list" class="modelsItm">
+<div class="featured-block">
+  <div class="col-md-2 col-xs-offset-3">
+  <div class="icon-btn">
+    <image src="modules/core/client/img/brand/T.jpg" class="img-circle img-responsive"/>
+    <span class="m-font" >TOOLS</span>
+  </div>
+  </div>
+</div>
+</a>
+<a ui-sref="sharehouses.list">
+<div class="featured-block">
+  <div class="col-md-2 col-xs-offset-2 ">
+  <div class="icon-btn">
+    <image src="modules/core/client/img/brand/H.jpg" class="img-circle img-responsive"/>
+    <span class="m-font" >Housing</span>
+  </div>
+  </div>
+</div>
+</a>
+</div>
+</div>
       <div class="content-wrap centering">
-              <h1>Latest Posts</h1>
-
+        <div class="lines">
+          <div class="more-btn">
+            <div  class="btn">Education</div>
+          </div>
+        </div>
+        <p></p>
         <div class="featured-items">
-          <ul  id="grid" >
-            <li ng-repeat="tool in latestTools">
+         <div ng-repeat="tool in latestTools" class="col-md-4 ">
+          <ul id="grid" >
+            <li>
               <div class="item">
             <h5>{{tool.title}}</h5>
           <div class="grow">
@@ -76,32 +115,40 @@
             <p><a ui-sref="sharetools.view({ sharetoolId: tool._id })" class="more">more info <i class="fw-icon-chevron-right"></i></a></p>
           </div>
             </li>
-
-          </ul>
-
-
-
+          </div>
+        </ul>
         </div>
         </div>
-		<div class="ruler"></div>
+        <p><a ui-sref="sharetools.list" class="more">More Posts<i class="fw-icon-chevron-right"></i></a></p>
 
-
-
-
-    </div><!-- /container -->
-
-    <div class="container">
-	<div class="copy-rights">
-		Copyright(c) website ShareIn.<br>
-	</div>
-	</div>
-
-
-
-
-
-
-
+          </div>
+          <div class="content-wrap centering">
+            <div class="lines">
+              <div class="more-btn">
+                <div  class="btn">Housing</div>
+              </div>
+            </div>
+            <p></p>
+            <div class="featured-items">
+             <div ng-repeat="house in latesthouses" class="col-md-4 ">
+              <ul id="grid" >
+                <li>
+                  <div class="item">
+                <h5>{{house.title}}</h5>
+              <div class="grow">
+                <img
+                src="{{house.houseImageURL}}" alt="{{house.title}}">
+               </div>
+                <p>{{tool.content}}</p>
+                <p><a ui-sref="sharehouses.view({ sharehouseId: tool._id })" class="more">more info <i class="fw-icon-chevron-right"></i></a></p>
+              </div>
+                </li>
+              </div>
+            </ul>
+            </div>
+            </div>
+            <p><a ui-sref="sharetools.list" class="more">More Posts<i class="fw-icon-chevron-right"></i></a></p>
+          <!-- /container -->
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -112,13 +159,9 @@
     <script src="public/js/imagesloaded.js"></script>
     <script src="public/js/classie.js"></script>
     <script src="public/js/AnimOnScroll.js"></script>
-
     <script>
-      new AnimOnScroll( document.getElementById( 'grid' ), {
-        minDuration : 0.4,
-        maxDuration : 0.7,
-        viewportFactor : 0.2
-      } );
+    $('.carousel').carousel()
     </script>
+    </div>
 
 </section>

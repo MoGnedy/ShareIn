@@ -1,47 +1,45 @@
-<section>
-  <div class="page-header">
+<div class="container page-styling">
+<div class="header-wrapper">
+       <section>
+             <div class="site-name">
+               <h1>create new</h1>
+             </div>
+             <p></p>
+  <!-- <div class="page-header">
     <h1>{{vm.sharetool.Data[0]._id ? 'Edit Sharetool' : 'New Sharetool'}}</h1>
-  </div>
-  <div class="col-md-12">
-    <form name="vm.form.sharetoolForm" class="form-horizontal" ng-submit="vm.save(vm.form.sharetoolForm.$valid)" novalidate>
+  </div> -->
+             <div class="form-style-3">
+                         <form name="vm.form.sharetoolForm" class="form-horizontal" ng-submit="vm.save(vm.form.sharetoolForm.$valid)" novalidate>
+                           <fieldset class="form-group">
+                                    <div class="form-group" show-errors>
+                                    <label class="control-label label" for="name">Title</label>
+                                    <input name="title" type="text" ng-model="vm.sharetool.Data[0].title" id="title" class="form-control" placeholder="Title" required/>
+                                    <div ng-messages="vm.form.sharetoolForm.title.$error" role="alert">
+                                   <p class="help-block error-text" ng-message="required">Education Share Title is Required.</p>
+                                     </div>
+                    <!-- {{vm.sharetool.Data[0]}} -->
+                                  </div>
+                                 <div class="form-group">
+                                      <label for="content" class="label">Description</label>
+                                       <textarea name="content" ng-model="vm.sharetool.Data[0].content" id="content" class="form-control" cols="30" rows="10" placeholder="Description"></textarea>
+                                  </div>
+                                <div class="form-group">
+                                       <!-- <input type="file" file-model="vm.myFile" /> -->
+                                       <div>
+                                         <label for="files" class="btn"><img src="modules/core/client/img/brand/imgg.png" /></label>
+                                         <input id="files" style="visibility:hidden;" type="file" file-model="vm.myFile"/>
+                                         </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <button type="submit" class="btn btn-danger">{{vm.sharetool.Data[0]._id ? 'Update' : 'Create'}}</button>
+                                  </div>
+                                  <div ng-show="vm.error" class="text-danger">
+                                       <strong ng-bind="vm.error"></strong>
+                                  </div>
+                                   </fieldset>
 
-      <fieldset>
-        <div class="form-group" show-errors>
-          <label class="control-label" for="name">Title</label>
-          <input name="title" type="text" ng-model="vm.sharetool.Data[0].title" id="title" class="form-control" placeholder="Title" required>
-          <div ng-messages="vm.form.sharetoolForm.title.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Sharetool name is required.</p>
-          </div>
-          <!-- {{vm.sharetool.Data[0]}} -->
-        </div>
-        <div class="form-group">
-          <label for="content">Content</label>
-          <textarea name="content" ng-model="vm.sharetool.Data[0].content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
-        </div>
-
-        <div class="form-group">
-          <input type="file" file-model="vm.myFile" multiple /><br><br>
-        </div>
-
-        <!-- <div class="form-group text-center">
-                  <img ng-src="{{imageURL}}" alt="{{tool.title}}" class="img-thumbnail user-profile-picture">
-                </div>
-                <div class="text-center form-group" ng-hide="uploader.queue.length">
-                  <span class="btn btn-default btn-file">
-                      Select Image <input type="file"  ng-model='vm.sharetool.Data[0].toolImageURL' >
-                  </span>
-                </div> -->
-                <div class="mapContainer" google-map>
-
-                </div>
-
-        <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.sharetool.Data[0]._id ? 'Update' : 'Create'}}</button>
-        </div>
-        <div ng-show="vm.error" class="text-danger">
-          <strong ng-bind="vm.error"></strong>
-        </div>
-      </fieldset>
-    </form>
-  </div>
+                     </form>
+               </div>
 </section>
+</div>
+</div>

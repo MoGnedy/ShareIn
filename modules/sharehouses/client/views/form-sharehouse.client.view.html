@@ -1,27 +1,33 @@
+<div class="container page-styling">
+<div class="header-wrapper">
 <section>
-  <div class="page-header">
-    <h1>{{vm.sharehouse.Data[0]._id ? 'Edit sharehouse' : 'New sharehouse'}}</h1>
+  <div class="site-name">
+    <h1>create new</h1>
   </div>
-  <div class="col-md-12">
+  <p></p>
+  <!-- <div class="page-header">
+    <h1>{{vm.sharehouse.Data[0]._id ? 'Edit sharehouse' : 'New sharehouse'}}</h1>
+  </div> -->
+  <!-- <div class="col-md-12">
     <form name="vm.form.sharehouseForm" class="form-horizontal" ng-submit="vm.save(vm.form.sharehouseForm.$valid)" novalidate>
       {{vm.sharehouse.Data[0]}}
       <fieldset>
         <div class="form-group" show-errors>
-          <label class="control-label" for="name">Title</label>
+          <label class="control-label label" for="name">Title:</label>
           <input name="title" type="text" ng-model="vm.sharehouse.Data[0].title" id="title" class="form-control" placeholder="Title" required>
           <div ng-messages="vm.form.sharehouseForm.title.$error" role="alert">
             <p class="help-block error-text" ng-message="required">House title is required.</p>
-          </div>
+          </div> -->
           <!-- {{vm.sharehouse.Data[0]}} -->
-        </div>
+        <!-- </div>
         <div class="form-group">
-          <label for="content">Content</label>
-          <textarea name="content" ng-model="vm.sharehouse.Data[0].content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
+          <label for="content" class="label">Description:</label>
+          <textarea name="content" ng-model="vm.sharehouse.Data[0].content" id="content" class="form-control" cols="30" rows="10" placeholder="Description"></textarea>
         </div>
 
         <div class="form-group">
           <input type="file" file-model="vm.myFile" /><br><br>
-        </div>
+        </div> -->
 
         <!-- <div class="form-group text-center">
                   <img ng-src="{{imageURL}}" alt="{{tool.title}}" class="img-thumbnail user-profile-picture">
@@ -32,13 +38,52 @@
                   </span>
                 </div> -->
 
-        <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.sharehouse.Data[0]._id ? 'Update' : 'Create'}}</button>
+        <!-- <div class="form-group">
+          <button type="submit" class="btn btn-danger">{{vm.sharehouse.Data[0]._id ? 'Update' : 'Create'}}</button>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>
         </div>
       </fieldset>
     </form>
-  </div>
+  </div> -->
+
+  <div class="form-style-3">
+    <form name="vm.form.sharehouseForm" class="form-horizontal" ng-submit="vm.save(vm.form.sharehouseForm.$valid)" novalidate>
+      <!-- {{vm.sharehouse.Data[0]}} -->
+       <fieldset class="form-group">
+        <div class="form-group" show-errors>
+          <label class="control-label label" for="name">Title:</label>
+          <input name="title" type="text" ng-model="vm.sharehouse.Data[0].title" id="title" class="form-control" placeholder="Title" required>
+          <div ng-messages="vm.form.sharehouseForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">House title is required.</p>
+          </div>
+         <!-- {{vm.sharetool.Data[0]}} -->
+       </div>
+       <div class="form-group">
+         <label for="content" class="label">Description:</label>
+         <textarea name="content" ng-model="vm.sharehouse.Data[0].content" id="content" class="form-control" cols="30" rows="10" placeholder="Description"></textarea>
+       </div>
+
+       <div class="form-group">
+         <!-- <input type="file" file-model="vm.myFile" /><br><br> -->
+         <div>
+           <label for="files" class="btn"><img src="modules/core/client/img/brand/imgg.png"/></label>
+           <input id="files" style="visibility:hidden;" type="file" file-model="vm.myFile"/>
+           </div>
+       </div>
+                       <div ng-show="vm.error" class="text-danger">
+                            <strong ng-bind="vm.error"></strong>
+                       </div>
+                       <div class="form-group">
+                         <button type="submit" class="btn btn-danger">{{vm.sharehouse.Data[0]._id ? 'Update' : 'Create'}}</button>
+                       </div>
+                       <div ng-show="vm.error" class="text-danger">
+                         <strong ng-bind="vm.error"></strong>
+                       </div>
+                       </fieldset>
+          </form>
+    </div>
 </section>
+</div>
+</div>

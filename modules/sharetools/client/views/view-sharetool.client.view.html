@@ -1,11 +1,17 @@
+<div class="container page-styling">
+<div class="header-wrapper">
 <section>
-  <div class="page-header">
+<div class="site-name">
     <h1 ng-bind="vm.sharetool.Data[0].title"></h1>
-  </div>
-  {{vm.authentication.user.roles}}
+</div>
+<p></p>
+  <!-- {{vm.authentication.user.roles}}
   {{vm.authentication.user.roles.indexOf('admin') !== -1}}
   {{vm.stateName}}
-  {{vm.stateName === 'admin.tool'}}
+  {{vm.stateName === 'admin.tool'}} -->
+  <div class="form-style-3">
+    <fieldset >
+      <fieldset >
   <div class="pull-right"
        ng-show="vm.sharetool.Data[0].isCurrentUserOwner ? true : vm.authentication.user.roles.indexOf('admin') !== -1">
     <a class="btn btn-primary" ng-show='vm.stateName !== "admin.tool"'
@@ -17,13 +23,17 @@
       <i class="glyphicon glyphicon-edit"></i>
     </a>
 
-
     <a class="btn btn-primary" ng-click="vm.remove()">
       <i class="glyphicon glyphicon-trash"></i>
     </a>
   </div>
+
+  <div>
+      <img src="{{vm.sharetool.Data[0].toolImageURL}}" alt="" class="img-responsive Toolimg">
+  </div>
+    <p class="lead" ng-bind="vm.sharetool.Data[0].content"></p>
   <small>
-    <em class="text-muted">
+    <em class="text-muted" style="padding-left:700px;">
       Posted on
       <span ng-bind="vm.sharetool.created | date:'mediumDate'"></span>
       by
@@ -32,56 +42,57 @@
       <span ng-if="!vm.sharetool.Data[0].user">Deleted User</span>
     </em>
   </small>
-  <p class="lead" ng-bind="vm.sharetool.Data[0].content"></p>
 </section>
-
+</div>
+</fieldset>
+</fieldset>
+<div class="form-style-3">
+  <fieldset >
 <section ng-if="vm.authentication.user">
-  <div class="page-header">
-    <h1>{{vm.comment._id ? 'Edit Comment' : 'New Comment'}}</h1>
-  </div>
   <div class="col-md-12">
     <form name="vm.form.commentForm" class="form-horizontal" ng-submit="vm.saveComment(vm.form.commentForm.$valid)" novalidate>
-      <fieldset>
+      <h1>Your Comment</h1>
         <div class="form-group" show-errors>
-          <label class="control-label" for="comment">Comment</label>
           <textarea name="name" type="text" ng-model="vm.comment.comment" id="comment" class="form-control" placeholder="comment" required></textarea>
           <div ng-messages="vm.form.commentForm.name.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Comment  is required.</p>
           </div>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.comment._id ? 'Update' : 'Comment'}}</button>
+          <button type="submit" class="btn btn-danger">{{vm.comment._id ? 'Update' : 'Comment'}}</button>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>
         </div>
-      </fieldset>
     </form>
   </div>
 </section>
-
+</div>
+<div class="form-style-3">
+  <fieldset >
 <section ng-if="vm.sharetool.Data[1] == ''  ? false : true">
-  <div class="page-header">
-    <h1>Comments</h1>
-  </div>
   <div class="list-group" id="comments">
     <!-- {{vm.sharetool.Data[1]}} -->
-    <a ng-repeat="comment in vm.sharetool.Data[1]"
-       ui-sref="sharetools.view({ sharetoolId: comment._id })"
+    <div ng-repeat="comment in vm.sharetool.Data[1]"
        class="list-group-item">
+       <img ng-src="{{comment.user.profileImageURL}}" alt="{{comment.title}}" class="header-profile-image" />
+       <span ng-if="comment.user" ng-bind="comment.user.displayName"></span>
+          <fieldset>
+              <p class="list-group-item-text" ng-bind="comment.comment"></p>
+          </fieldset>
+       <span ng-if="!comment.user">Deleted User</span>
       <small class="list-group-item-text">
         Posted on
         <span ng-bind="comment.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="comment.user" ng-bind="comment.user.displayName"></span>
-        <span ng-if="!comment.user">Deleted User</span>
       </small>
-      <h4 class="list-group-item-heading" ng-bind="comment.title"></h4>
-      <p class="list-group-item-text" ng-bind="comment.comment"></p>
-      <img ng-src="{{comment.user.profileImageURL}}" alt="{{comment.title}}" class="header-profile-image" />
-    </a>
+      <!-- <h4 class="list-group-item-heading" ng-bind="comment.title"></h4> -->
+    </div>
   </div>
+</div>
+</fieldset>
   <div class="alert alert-warning text-center" ng-if="vm.sharetools.$resolved && !vm.sharetools.length">
     No Sharetools yet, why don't you <a ui-sref="sharetools.create">create one</a>?
   </div>
-</section>
+</fieldset>
+</div>
+</div>

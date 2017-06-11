@@ -1,27 +1,45 @@
+<div class="container page-styling">
+<div class="header-wrapper">
 <section>
-  <div class="page-header">
-    <h1>Sharehouses</h1>
-  </div>
-  <button type="button" class="btn btn-large btn-block btn-success" ui-sref="sharehouses.create" >Add New Tool</button>
-
-  <div class="list-group">
-    <a ng-repeat="sharehouse in vm.sharehouses"
-       ui-sref="sharehouses.view({ sharehouseId: sharehouse._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="sharehouse.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="sharehouse.user" ng-bind="sharehouse.user.displayName"></span>
-        <span ng-if="!sharehouse.user">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="sharehouse.title"></h4>
-      <p class="list-group-item-text" ng-bind="sharehouse.content"></p>
-      <img ng-src="{{sharehouse.houseImageURL}}" alt="{{sharehouse.title}}" class="header-profile-image" />
-
-    </a>
-  </div>
-  <div class="alert alert-warning text-center" ng-if="vm.sharehouses.$resolved && !vm.sharehouses.length">
-    No Sharehouses yet, why don't you <a ui-sref="sharehouses.create">create one</a>?
-  </div>
+<div class="site-name">
+<image src="modules/core/client/img/brand/H.jpg" class="img-circle img-responsive" style="height:150px;width:150px;"/>
+</div>
+<p></p>
+<div class="form-style-3">
+  <fieldset>
+  <button type="button" class="btn btn-danger " ui-sref="sharehouse.create" >Add New Advertising</button>
+<p></p>
+<div class="row">
+<div class="featured-items">
+<div ng-repeat="sharehouse in vm.sharehouses" class="col-md-4 ">
+<ul id="grid" >
+<li >
+    <div class="item">
+    <h4 class="list-group-item-heading" ng-bind="sharehouse.title"></h4>
+     <div class="grow">
+       <img ng-src="{{sharehouse.houseImageURL}}" alt="{{sharehouse.title}}">
+       </div>
+     <p class="list-group-item-text" ng-bind="sharetool.content"></p>
+     <small class="list-group-item-text">
+      Posted on
+      <span ng-bind="sharehouse.created | date:'mediumDate'"></span>
+      by
+      <span ng-if="sharehouse.user" ng-bind="sharehouse.user.displayName"></span>
+      <span ng-if="!sharehouse.user">Deleted User</span>
+    </small>
+     <p><a ui-sref="sharehouses.view({ sharehouseId: sharehouse._id })"
+     class="more">more info <i class="fw-icon-chevron-right"></i></a></p>
+</div>
+  </li>
+</div>
+</ul>
+</div>
+</div>
+<div class="alert alert-warning text-center" ng-if="vm.sharehouses.$resolved && !vm.sharehouses.length">
+  No Sharehouses yet, why don't you <a ui-sref="sharehouses.create">create one</a>?
+</div>
+</fieldset>
+</div>
 </section>
+</div>
+</div>
