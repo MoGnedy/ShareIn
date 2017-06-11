@@ -26,7 +26,7 @@ module.exports = function(app) {
     .get(sharehouses.list)
     .post(sharehouses.create);
 
-  app.route('/api/sharesharehouses/latest').all(sharehousesPolicy.isAllowed)
+  app.route('/api/sharehouses/latest').all(sharehousesPolicy.isAllowed)
       .get(sharehouses.listLatest);
 
 
@@ -40,6 +40,8 @@ module.exports = function(app) {
     .post(comment.create);
   app.route('/api/getHouseComments')
     .post(comment.list);
+
+
 
   // Finish by binding the Sharehouse middleware
   app.param('sharehouseId', sharehouses.sharehouseByID);

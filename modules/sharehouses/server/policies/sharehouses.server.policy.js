@@ -29,6 +29,10 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/sharehouses/:sharehouseId',
       permissions: ['get']
+    },
+    {
+      resources: '/api/sharehouses/latest',
+      permissions: ['get']
     }]
   }, {
     roles: ['guest'],
@@ -37,6 +41,10 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }, {
       resources: '/api/sharehouses/:sharehouseId',
+      permissions: ['get']
+    },
+    {
+      resources: '/api/sharehouses/latest',
       permissions: ['get']
     }]
   }]);

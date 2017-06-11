@@ -17,5 +17,17 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     });
 
+    homeServices.getLatestHouses().then(function(res) {
+      console.log(res);
+      if (res && !res.status) {
+        console.log(res);
+        $scope.latestHouses = res;
+
+      } else {
+        console.log("no houses posts");
+      }
+
+    });
+
   }
 ]);
