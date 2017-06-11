@@ -97,18 +97,18 @@ a{transition:all 1s; }
  .spacing-rt{padding-right: 30px;}
  .centering{text-align:start;}
 
-.page-styling{background: #FFCC00;padding: 10 10px;margin-top: 90px;border-radius: 5px; padding-bottom: 10px;}
+.page-styling{background: #ffcc00;padding: 10 10px;margin-top: 90px;border-radius: 5px; padding-bottom: 10px;}
  .ruler{border-bottom: 1px solid #c2c2c2;}
 
 .lines{background: url(../img/border.jpg) repeat-x 0; text-align: center; width: 100%;}
 
 .more-btn{padding: 0 15px; background: #ebebeb; display: inline-block; margin: 0 auto;}
-.more-btn .btn{color: #097054; font-size: 16px; background: #FFCC00;font-family: 'source_sans_probold';
+.more-btn .btn{color: white; font-size: 16px; background: #FFCC00;font-family: 'source_sans_probold';
  text-transform: uppercase;padding: 5px; border-radius: 5px; box-shadow: -4px 5px 0px 1px rgba(0, 0, 0, 0.1);}
 .more-btn .btn:hover{background: #337ab7; color:#000066; }
 
 
-.content-wrap{overflow: hidden; padding: 60px 0;padding-bottom: 0;}
+.content-wrap{overflow: hidden; padding: 7px 0;padding-bottom: 0;}
 
 
 /* ==========================================================================

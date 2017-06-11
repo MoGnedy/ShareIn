@@ -2,24 +2,24 @@
 <div class="header-wrapper">
 <section>
   <div class="site-name">
-    <image src="modules/core/client/img/brand/tt.jpg" class="img-circle img-responsive"/>
+    <image src="modules/core/client/img/brand/T.jpg" class="img-responsive" style="height:150px;width:150px;"/>
   </div>
   <p></p>
       <div class="form-style-3">
         <fieldset>
-  <button type="button" class="btn btn-danger createNew" ui-sref="sharetools.create" >Add New Advertising</button>
+  <button type="button" class="btn createNew" ui-sref="sharetools.create"  style="background-color:#FFDE00;color: #097054;" >Add New Advertising</button>
   <p></p>
 
   <div class="featured-items">
    <div ng-repeat="sharetool in vm.sharetools" class="col-md-4 ">
     <ul id="grid" >
     <li >
-        <div class="item">
+        <div class="item" style="width:300px;height:400px;">
           <h4 class="list-group-item-heading" ng-bind="sharetool.title"></h4>
-         <div>
+         <div class="grow">
            <img ng-src="{{sharetool.toolImageURL}}" alt="{{sharetool.title}}">
            </div>
-         <p class="list-group-item-text" ng-bind="sharetool.content"></p>
+         <p ng-bind="sharetool.content | limitTo: 20"></p>
          <small class="list-group-item-text">
            Posted on
            <span ng-bind="sharetool.created | date:'mediumDate'"></span>

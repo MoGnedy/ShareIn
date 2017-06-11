@@ -19,7 +19,7 @@
      <div class="grow">
        <img ng-src="{{sharehouse.houseImageURL}}" alt="{{sharehouse.title}}">
        </div>
-     <p class="list-group-item-text" ng-bind="sharetool.content"></p>
+     <p ng-bind="sharehouse.content | limitTo: 20"></p>
      <small class="list-group-item-text">
       Posted on
       <span ng-bind="sharehouse.created | date:'mediumDate'"></span>
