@@ -3,27 +3,27 @@
 <div class="row" ng-controller="ChatController">
   <div class="col-md-2">
     <!-- {{onlineUsers}} -->
-  <!-- {{userId}} -->
+    <!-- {{userId}} -->
   </div>
   <div class="col-md-9">
 
-<section class="container" >
-  <div class="page-header">
-    <h1>Chat with {{receiverUser}}</h1>
-    <!-- {{onlineUsers}} -->
-  </div>
-  <!-- The message form -->
-  <form class="col-xs-12 col-md-offset-4 col-md-4" ng-submit="sendPrivate();">
-    <fieldset class="row">
-      <div class="input-group">
-        <input type="text" id="privateText" name="privateText" class="form-control" ng-model="privateText" placeholder="Enter new message">
-        <span class="input-group-btn">
+    <section class="container">
+      <div class="page-header">
+        <h1>Chat with {{receiverUser}}</h1>
+        <!-- {{onlineUsers}} -->
+      </div>
+      <!-- The message form -->
+      <form class="col-xs-12 col-md-offset-4 col-md-4" ng-submit="sendPrivate();">
+        <fieldset class="row">
+          <div class="input-group">
+            <input type="text" id="privateText" name="privateText" class="form-control" ng-model="privateText" placeholder="Enter new message">
+            <span class="input-group-btn">
           <button type="submit" class="btn btn-primary" ng-disabled="!privateText.length">Submit</button>
         </span>
-      </div>
-    </fieldset>
-  </form>
-   <!-- <ul class="list-unstyled">
+          </div>
+        </fieldset>
+      </form>
+      <!-- <ul class="list-unstyled">
     List all messages
     {{privateMessages}}
     <li class="col-xs-12 col-md-offset-4 col-md-4 chat-message" ng-repeat="message in messages">
@@ -36,9 +36,9 @@
       </div>
     </li>
   </ul> -->
-</section>
-</div>
-</div>
+    </section>
+  </div>
+
 <section ng-if="privateMessages == ''  ? false : true">
   <div class="page-header">
     <h1>Messages</h1>
@@ -46,9 +46,12 @@
   <!-- {{privateMessages}} -->
   <div class="list-group" id="privateMessages">
     <!-- {{vm.sharetool.Data[1]}} -->
-    <a ng-repeat="message in privateMessages track by $index"
-       ui-sref="sharetools.view({ sharetoolId: message._id })"
-       class="list-group-item">
+    <div ng-repeat="message in privateMessages track by $index" class="list-group-item">
+      <div class="pull-right">
+        <a class="btn btn-primary" ng-click="msgRemove(message.msg_id,$index);">
+          <i class="glyphicon glyphicon-trash"></i>
+        </a>
+      </div>
       <small class="list-group-item-text">
         Posted on
         <span ng-bind="message.date | date:'mediumDate'"></span>
@@ -57,11 +60,14 @@
         <span ng-if="!message">Deleted User</span>
       </small>
       <h4 class="list-group-item-heading" ng-bind="message.message"></h4>
+
       <p class="list-group-item-text" ng-bind="message.message"></p>
       <img ng-src="{{message.profileImageURL}}" alt="{{message.displayName}}" class="header-profile-image" />
-    </a>
+
+    </div>
   </div>
   <!-- <div class="alert alert-warning text-center" ng-if="vm.sharetool.$resolved && !vm.sharetools.length">
     No Sharetools yet, why don't you <a ui-sref="sharetools.create">create one</a>?
   </div> -->
 </section>
+</div>
