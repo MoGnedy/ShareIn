@@ -73,17 +73,19 @@ exports.update = function(req, res) {
  * Delete an comment
  */
 exports.delete = function(req, res) {
-  var comment = req.comment;
-
-  comment.remove(function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(comment);
-    }
-  });
+  var comment = req.body.comment;
+console.log('[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]');
+console.log(req.body.comment);
+console.log(req);
+  // comment.remove(function(err) {
+  //   if (err) {
+  //     return res.status(400).send({
+  //       message: errorHandler.getErrorMessage(err)
+  //     });
+  //   } else {
+  //     res.jsonp(comment);
+  //   }
+  // });
 };
 
 /**
