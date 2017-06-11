@@ -6,9 +6,9 @@
     .module('sharehouses')
     .controller('SharehousesController', SharehousesController);
 
-  SharehousesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'sharehouseResolve', '$http', '$compile', 'Socket'];
+  SharehousesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'sharehouseResolve', '$http', '$compile', 'Socket', 'commentServices'];
 
-  function SharehousesController($scope, $state, $window, Authentication, sharehouse, $http, $compile, Socket) {
+  function SharehousesController($scope, $state, $window, Authentication, sharehouse, $http, $compile, Socket, commentServices) {
     var vm = this;
     vm.stateName = $state.current.name;
     console.log($state.current.name);
@@ -20,6 +20,7 @@
     vm.remove = remove;
     vm.save = save;
     vm.saveComment = saveComment;
+    vm.commentRemove = commentRemove;
     if (!Socket.socket) {
       Socket.connect();
       console.log("ShareHouses connected");
@@ -128,6 +129,35 @@
         vm.error = res.data.message;
       }
     }
+
+
+    function commentRemove(comment_id, i) {
+      console.log(comment_id);
+      // console.log(tool_id);
+      // console.log(angular.element(document.querySelector('#'+user._id)));
+      // angular.element(document.querySelector('#\\'+user._id)).remove();
+      if ($window.confirm('Are you sure you want to delete?')) {
+        // var commentData = {'tool_id':tool_id, 'comment_id':comment_id,}
+        var comment = {'comment': comment_id}
+        console.log(comment_id);
+        commentServices.removeComment(comment).then(function(res) {
+          console.log(res);
+
+          if (res && !res.status) {
+
+            vm.sharehouse.Data[1].splice(i, 1);
+            // $rootScope.$apply();
+          } else {
+            console.log("send error");
+          }
+
+
+        });
+
+      }
+
+    };
+
 
 
     Socket.on('UpdateHouseComments', function(house_id) {

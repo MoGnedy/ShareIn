@@ -12,7 +12,7 @@
   <div class="form-style-3">
     <fieldset >
   <div class="pull-right"
-  ng-show="vm.sharetool.Data[0].isCurrentUserOwner ? true : vm.authentication.user && vm.authentication.user.roles.indexOf('admin') !== -1">  
+  ng-show="vm.sharetool.Data[0].isCurrentUserOwner ? true : vm.authentication.user && vm.authentication.user.roles.indexOf('admin') !== -1">
     <a class="btn btn-primary" ng-show='vm.stateName !== "admin.tool"'
        ui-sref="sharetools.edit({ sharetoolId: vm.sharetool.Data[0]._id })">
       <i class="glyphicon glyphicon-edit"></i>
@@ -38,7 +38,7 @@
   <small>
     <em class="text-muted" style="padding-left:700px;">
       Posted on
-      <span ng-bind="vm.sharetool.created | date:'mediumDate'"></span>
+      <span ng-bind="vm.sharetool.Data[0].created | date:'mediumDate'"></span>
       by
       <span ng-if="vm.sharetool.Data[0].user"
             ng-bind="vm.sharetool.Data[0].user.displayName"></span>
@@ -77,9 +77,18 @@
     <!-- {{vm.sharetool.Data[1]}} -->
     <div ng-repeat="comment in vm.sharetool.Data[1]"
        class="list-group-item">
+
        <img ng-src="{{comment.user.profileImageURL}}" alt="{{comment.title}}" class="header-profile-image" />
        <span ng-if="comment.user" ng-bind="comment.user.displayName"></span>
           <fieldset>
+            <div class="pull-right"
+            ng-show="comment.user._id === vm.authentication.user._id ? true : vm.authentication.user && vm.authentication.user.roles.indexOf('admin') !== -1">
+
+
+              <a class="btn btn-primary" ng-click="vm.commentRemove(comment._id,vm.sharetool.Data[1]._id,$index);">
+                <i class="glyphicon glyphicon-trash"></i>
+              </a>
+            </div>
               <p class="list-group-item-text" ng-bind="comment.comment"></p>
           </fieldset>
        <span ng-if="!comment.user">Deleted User</span>

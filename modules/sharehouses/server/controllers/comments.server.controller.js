@@ -71,19 +71,21 @@ exports.update = function(req, res) {
 /**
  * Delete an comment
  */
-exports.delete = function(req, res) {
-  var comment = req.comment;
-
-  comment.remove(function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(comment);
-    }
-  });
-};
+ exports.delete = function(req, res) {
+   var comment = new _Comment();
+   comment._id = req.body.comment;
+ console.log('[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]');
+ console.log(req.body.comment);
+   comment.remove(function(err) {
+     if (err) {
+       return res.status(400).send({
+         message: errorHandler.getErrorMessage(err)
+       });
+     } else {
+       res.jsonp(comment);
+     }
+   });
+ };
 
 /**
  * List of comments

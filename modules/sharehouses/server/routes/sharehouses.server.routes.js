@@ -40,6 +40,8 @@ module.exports = function(app) {
     .post(comment.create);
   app.route('/api/getHouseComments')
     .post(comment.list);
+  app.route('/api/removeHouseComment')
+      .post(comment.delete);
 
 
 
