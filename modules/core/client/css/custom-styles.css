@@ -103,7 +103,7 @@ a{transition:all 1s; }
 .lines{background: url(../img/border.jpg) repeat-x 0; text-align: center; width: 100%;}
 
 .more-btn{padding: 0 15px; background: #ebebeb; display: inline-block; margin: 0 auto;}
-.more-btn .btn{color: #ebebeb; font-size: 16px; background: #FFCC00;font-family: 'source_sans_probold';
+.more-btn .btn{color: #097054; font-size: 16px; background: #FFCC00;font-family: 'source_sans_probold';
  text-transform: uppercase;padding: 5px; border-radius: 5px; box-shadow: -4px 5px 0px 1px rgba(0, 0, 0, 0.1);}
 .more-btn .btn:hover{background: #337ab7; color:#000066; }
 

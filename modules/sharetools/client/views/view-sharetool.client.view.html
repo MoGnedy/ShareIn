@@ -11,7 +11,6 @@
   {{vm.stateName === 'admin.tool'}} -->
   <div class="form-style-3">
     <fieldset >
-      <fieldset >
   <div class="pull-right"
        ng-show="vm.sharetool.Data[0].isCurrentUserOwner ? true : vm.authentication.user.roles.indexOf('admin') !== -1">
     <a class="btn btn-primary" ng-show='vm.stateName !== "admin.tool"'
@@ -28,10 +27,14 @@
     </a>
   </div>
 
-  <div>
+  <div class="row">
+      <div class="col-md-6">
       <img src="{{vm.sharetool.Data[0].toolImageURL}}" alt="" class="img-responsive Toolimg">
-  </div>
+     </div>
+       <div class="col-md-6">
     <p class="lead" ng-bind="vm.sharetool.Data[0].content"></p>
+    </div>
+    </div>
   <small>
     <em class="text-muted" style="padding-left:700px;">
       Posted on
@@ -44,7 +47,6 @@
   </small>
 </section>
 </div>
-</fieldset>
 </fieldset>
 <div class="form-style-3">
   <fieldset >
@@ -59,7 +61,7 @@
           </div>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-danger">{{vm.comment._id ? 'Update' : 'Comment'}}</button>
+          <button type="submit" class="btn" style="background-color:#097054;">{{vm.comment._id ? 'Update' : 'Comment'}}</button>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>

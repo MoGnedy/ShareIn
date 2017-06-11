@@ -130,7 +130,7 @@
             </div>
             <p></p>
             <div class="featured-items">
-             <div ng-repeat="house in latesthouses" class="col-md-4 ">
+             <div ng-repeat="house in latestHouses" class="col-md-4 ">
               <ul id="grid" >
                 <li>
                   <div class="item">
@@ -139,15 +139,15 @@
                 <img
                 src="{{house.houseImageURL}}" alt="{{house.title}}">
                </div>
-                <p>{{tool.content}}</p>
-                <p><a ui-sref="sharehouses.view({ sharehouseId: tool._id })" class="more">more info <i class="fw-icon-chevron-right"></i></a></p>
+                <p>{{house.content}}</p>
+                <p><a ui-sref="sharehouses.view({ sharehouseId: house._id })" class="more">more info <i class="fw-icon-chevron-right"></i></a></p>
               </div>
                 </li>
               </div>
             </ul>
             </div>
             </div>
-            <p><a ui-sref="sharetools.list" class="more">More Posts<i class="fw-icon-chevron-right"></i></a></p>
+            <p><a ui-sref="sharehouses.list" class="more">More Posts<i class="fw-icon-chevron-right"></i></a></p>
           <!-- /container -->
     <!-- Bootstrap core JavaScript
     ================================================== -->

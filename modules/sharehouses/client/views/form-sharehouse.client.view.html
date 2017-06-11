@@ -49,6 +49,7 @@
   </div> -->
 
   <div class="form-style-3">
+    <fieldset>
     <form name="vm.form.sharehouseForm" class="form-horizontal" ng-submit="vm.save(vm.form.sharehouseForm.$valid)" novalidate>
       <!-- {{vm.sharehouse.Data[0]}} -->
        <fieldset class="form-group">
@@ -76,13 +77,14 @@
                             <strong ng-bind="vm.error"></strong>
                        </div>
                        <div class="form-group">
-                         <button type="submit" class="btn btn-danger">{{vm.sharehouse.Data[0]._id ? 'Update' : 'Create'}}</button>
+                         <button type="submit" class="btn" style="background-color:#FFDE00;color: #097054;">{{vm.sharehouse.Data[0]._id ? 'Update' : 'Create'}}</button>
                        </div>
                        <div ng-show="vm.error" class="text-danger">
                          <strong ng-bind="vm.error"></strong>
                        </div>
                        </fieldset>
           </form>
+        </fieldset>
     </div>
 </section>
 </div>
