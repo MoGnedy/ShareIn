@@ -7,7 +7,7 @@
 <p></p>
 <div class="form-style-3">
   <fieldset>
-  <button type="button" class="btn" ui-sref="sharehouse.create" style="background-color:#FFDE00;color: #097054;">Add New Advertising</button>
+  <button type="button" class="btn" ui-sref="sharehouses.create" style="background-color:#FFDE00;color: #097054;">Add New Advertising</button>
 <p></p>
 <div class="row">
 <div class="featured-items">
@@ -19,7 +19,7 @@
      <div class="grow">
        <img ng-src="{{sharehouse.houseImageURL}}" alt="{{sharehouse.title}}">
        </div>
-     <p class="list-group-item-text" ng-bind="sharetool.content"></p>
+     <p ng-bind="sharehouse.content | limitTo: 20"></p>
      <small class="list-group-item-text">
       Posted on
       <span ng-bind="sharehouse.created | date:'mediumDate'"></span>

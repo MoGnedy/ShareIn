@@ -1,5 +1,5 @@
 .body{
- background-color:#097054;
+ background-color:#082463;
 }
 .word{
   word-break: break-all;
@@ -45,7 +45,7 @@ a:hover .header-profile-image {
 
 .m-font{
    font-size:20px;
-   color:#097054;
+   color:#082463;
    font-style:normal;
 }
 
@@ -152,7 +152,6 @@ a:hover .header-profile-image {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     margin: 0px 0px 10px 0px;
-    border: 1px solid #FFCC00;
     padding: 20px;
     background: rgb(235, 235, 235;
     box-shadow: inset 0px 0px 15px #FFE5E5;
@@ -230,4 +229,14 @@ a:hover .header-profile-image {
 }
 .tools{
   height: 200px;
+}
+.carousel-control.right {
+    right: 0;
+    left: auto;
+    /* background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%); */
+    background-image: -o-linear-gradient(left, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
+    /* background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .0001)), to(rgba(0, 0, 0, .5))); */
+    /* background-image: linear-gradient(to right, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%); */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+    background-repeat: repeat-x;
 }
