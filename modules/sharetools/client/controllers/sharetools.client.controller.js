@@ -71,24 +71,51 @@
         $scope.$broadcast('show-errors-check-validity', 'vm.form.sharetoolForm');
         return false;
       }
+
+      var imageUrl;
+      var file = vm.myFile;
+      var uploadUrl = "/multerTool";
+      var fd = new FormData();
+    
       console.log(vm.sharetool.Data[0]);
       console.log(vm.myFile);
       // TODO: move create/update logic to service
       if (vm.sharetool.Data[0]._id) {
+        if (vm.myFile){
+          imageUrl = './modules/sharetools/client/img/tool/' + vm.myFile.name;
+        console.log(imageUrl);
+        fd.append('file', file);
+        console.log('before Post');
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {
+              'Content-Type': undefined
+            }
+
+          })
+          .success(function() {
+            console.log("success!!");
+          })
+          .error(function() {
+            console.log("error!!");
+          });
+
+        }
+        if (vm.myFile){
+          console.log('tmam');
+          vm.sharetoolObj.toolImageURL = imageUrl;
+        }
         vm.sharetoolObj._id = vm.sharetool.Data[0]._id;
         vm.sharetoolObj.title = vm.sharetool.Data[0].title;
         vm.sharetoolObj.content = vm.sharetool.Data[0].content;
-        vm.sharetoolObj.toolImageURL = vm.sharetool.Data[0].toolImageURL;
+        // vm.sharetoolObj.toolImageURL = vm.sharetool.Data[0].toolImageURL;
         vm.sharetoolObj.$update(successCallback, errorCallback);
       } else {
-            var imageUrl;
+
         console.log(vm.myFile);
         if (vm.myFile){
           imageUrl = './modules/sharetools/client/img/tool/' + vm.myFile.name;
         console.log(imageUrl);
-        var file = vm.myFile;
-        var uploadUrl = "/multerTool";
-        var fd = new FormData();
         fd.append('file', file);
         console.log('before Post');
         $http.post(uploadUrl, fd, {
