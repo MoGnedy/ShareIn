@@ -6,9 +6,9 @@
     .module('sharetools')
     .controller('SharetoolsController', SharetoolsController);
 
-  SharetoolsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'sharetoolResolve', '$http', '$compile', 'Socket'];
+  SharetoolsController.$inject = ['$scope', '$rootScope', '$state', '$window', 'Authentication', 'sharetoolResolve', '$http', '$compile', 'Socket', 'commentToolServices'];
 
-  function SharetoolsController($scope, $state, $window, Authentication, sharetool, $http, $compile, Socket, sharetoolResolve) {
+  function SharetoolsController($scope, $rootScope, $state, $window, Authentication, sharetool, $http, $compile, Socket, commentToolServices, sharetoolResolve) {
     var vm = this;
     vm.stateName = $state.current.name;
     console.log($state.current.name);
@@ -20,6 +20,8 @@
     vm.remove = remove;
     vm.save = save;
     vm.saveComment = saveComment;
+    vm.commentRemove = commentRemove;
+    console.log(commentToolServices);
     if (!Socket.socket) {
       Socket.connect();
       console.log("ShareTools connected");
@@ -167,6 +169,34 @@
       function errorCallback(res) {
         vm.error = res.data.message;
       }
+    }
+
+    function commentRemove(comment_id, i) {
+      console.log(comment_id);
+      // console.log(tool_id);
+      // console.log(angular.element(document.querySelector('#'+user._id)));
+      // angular.element(document.querySelector('#\\'+user._id)).remove();
+      if ($window.confirm('Are you sure you want to delete?')) {
+        // var commentData = {'tool_id':tool_id, 'comment_id':comment_id,}
+        var comment = {'comment': comment_id};
+        console.log(comment_id);
+        console.log(comment);
+        commentToolServices.removeComment(comment).then(function(res) {
+          console.log(res);
+
+          if (res && !res.status) {
+
+            vm.sharetool.Data[1].splice(i, 1);
+            // $rootScope.$apply();
+          } else {
+            console.log("send error");
+          }
+
+
+        });
+
+      }
+
     }
 
 

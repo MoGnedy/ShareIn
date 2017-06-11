@@ -84,7 +84,7 @@ gulp.task('jshint', function () {
   var assets = _.union(
     defaultAssets.server.gulpConfig,
     defaultAssets.server.allJS,
-    // defaultAssets.client.js,
+    defaultAssets.client.js,
     testAssets.tests.server,
     testAssets.tests.client,
     testAssets.tests.e2e

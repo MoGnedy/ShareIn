@@ -6,9 +6,9 @@
     .module('sharehouses')
     .controller('SharehousesController', SharehousesController);
 
-  SharehousesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'sharehouseResolve', '$http', '$compile', 'Socket', 'commentServices'];
+  SharehousesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'sharehouseResolve', '$http', '$compile', 'Socket', 'commentHouseServices'];
 
-  function SharehousesController($scope, $state, $window, Authentication, sharehouse, $http, $compile, Socket, commentServices) {
+  function SharehousesController($scope, $state, $window, Authentication, sharehouse, $http, $compile, Socket, commentHouseServices) {
     var vm = this;
     vm.stateName = $state.current.name;
     console.log($state.current.name);
@@ -138,9 +138,10 @@
       // angular.element(document.querySelector('#\\'+user._id)).remove();
       if ($window.confirm('Are you sure you want to delete?')) {
         // var commentData = {'tool_id':tool_id, 'comment_id':comment_id,}
-        var comment = {'comment': comment_id}
+        var comment = {'comment': comment_id};
         console.log(comment_id);
-        commentServices.removeComment(comment).then(function(res) {
+        console.log(commentHouseServices);
+        commentHouseServices.removeComment(comment).then(function(res) {
           console.log(res);
 
           if (res && !res.status) {
@@ -156,7 +157,7 @@
 
       }
 
-    };
+    }
 
 
 

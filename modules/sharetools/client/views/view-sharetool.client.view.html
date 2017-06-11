@@ -85,7 +85,7 @@
             ng-show="comment.user._id === vm.authentication.user._id ? true : vm.authentication.user && vm.authentication.user.roles.indexOf('admin') !== -1">
 
 
-              <a class="btn btn-primary" ng-click="vm.commentRemove(comment._id,vm.sharetool.Data[1]._id,$index);">
+              <a class="btn btn-primary" ng-click="vm.commentRemove(comment._id,$index);">
                 <i class="glyphicon glyphicon-trash"></i>
               </a>
             </div>
