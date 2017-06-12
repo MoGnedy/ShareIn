@@ -97,13 +97,13 @@ a{transition:all 1s; }
  .spacing-rt{padding-right: 30px;}
  .centering{text-align:start;}
 
-.page-styling{background: #ffcc00;padding: 10 10px;margin-top: 90px;border-radius: 5px; padding-bottom: 10px;}
+.page-styling{background:darkred;padding: 10 10px;margin-top: 90px;border-radius: 5px; padding-bottom: 10px;}
  .ruler{border-bottom: 1px solid #c2c2c2;}
 
 .lines{background: url(../img/border.jpg) repeat-x 0; text-align: center; width: 100%;}
 
 .more-btn{padding: 0 15px; background: #ebebeb; display: inline-block; margin: 0 auto;}
-.more-btn .btn{color: white; font-size: 16px; background: #FFCC00;font-family: 'source_sans_probold';
+.more-btn .btn{color: white; font-size: 16px; background: darkred;font-family: 'source_sans_probold';
  text-transform: uppercase;padding: 5px; border-radius: 5px; box-shadow: -4px 5px 0px 1px rgba(0, 0, 0, 0.1);}
 .more-btn .btn:hover{background: #337ab7; color:#000066; }
 
@@ -114,10 +114,10 @@ a{transition:all 1s; }
 /* ==========================================================================
     Menu styles starts here
    ========================================================================== */
-    .menu{text-align: center; padding: 35px 0; }
+    .menu{ padding: 35px 0; }
     .menu .navbar{margin-bottom: 0;}
     .menu .navbar{display: inline-block;}
-    .menu .navbar .nav > li{border-bottom: 1px solid #d2d2d2; border-top: 1px solid #d2d2d2; margin: 0 10px;}
+    .menu .navbar .nav > li{border-bottom: 1px solid white; border-top: 1px solid #d2d2d2; margin: 0 10px;}
 
     .menu .navbar .nav > li > a{color: #909090; font-size: 16px;font-family: 'source_sans_proregular'; padding: 10px; text-transform: uppercase;}
     .menu .navbar .nav > li > a:hover{color: #ebebeb; background: #373435;}

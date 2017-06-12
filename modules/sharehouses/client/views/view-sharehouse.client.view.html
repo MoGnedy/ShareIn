@@ -20,7 +20,7 @@
     </a>
   </div>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4 col-md-offset-1">
       <img src="{{vm.sharehouse.Data[0].houseImageURL}}" alt="" class="img-responsive">
     </div>
     <div class="col-md-6 word">
@@ -58,7 +58,7 @@
           </div>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-danger">{{vm.comment._id ? 'Update' : 'Comment'}}</button>
+          <button type="submit" class="btn"  style="background-color:#082463; color:white;">{{vm.comment._id ? 'Update' : 'Comment'}}</button>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>
