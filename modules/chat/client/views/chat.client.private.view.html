@@ -48,7 +48,7 @@
     <!-- {{vm.sharetool.Data[1]}} -->
     <div ng-repeat="message in privateMessages track by $index" class="list-group-item">
       <div class="pull-right">
-        <a class="btn btn-primary" ng-click="vm.msgRemove(message.msg_id,$index);">
+        <a class="btn btn-primary" ng-click="msgRemove(message.msg_id,$index);">
           <i class="glyphicon glyphicon-trash"></i>
         </a>
       </div>

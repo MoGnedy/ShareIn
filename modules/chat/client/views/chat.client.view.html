@@ -85,14 +85,17 @@
        <a
           ui-sref="chat.private({ userId: conv.convWith._id })"
           >
+
        <div class="pull-right">
           <button type="button"
 
-          ng-class="onlineUsersUsernames.indexOf(conv.convWith.username) !== -1 ? 'btn btn-success' : 'btn btn-danger'  ">
+          ng-class="onlineUsersUsernames ? onlineUsersUsernames.indexOf(conv.convWith.username) !== -1 ? 'btn btn-success' : 'btn btn-danger' : 'btn btn-danger'  ">
           <i class="glyphicon glyphicon-flash"></i></button>
 
        </div>
-
+       <!-- {{onlineUsersUsernames}} -->
+       {{conv.convWith.username}}
+{{onlineUsersUsernames.indexOf(conv.convWith.username)}}
       <small class="list-group-item-text">
         Posted on
         <span ng-bind="conv.msgData.created | date:'mediumDate'"></span>

@@ -15,7 +15,7 @@
         // $scope.buildPager();
         $scope.buildPager = function() {
           $scope.pagedItems = [];
-          $scope.itemsPerPage = 15;
+          $scope.itemsPerPage = 10;
           $scope.currentPage = 1;
           $scope.figureOutItemsToDisplay();
         };

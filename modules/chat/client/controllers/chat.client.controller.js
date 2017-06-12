@@ -104,6 +104,8 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
             'receiver': $rootScope.privateUserName.username,
             'message': $scope.privateText,
             'sender': $scope.authentication.user.username,
+            'senderObj':$scope.authentication.user,
+            'receiverObj':$rootScope.privateUserName,
             'date': new Date()
           };
           console.log(messageData);
@@ -155,7 +157,10 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
 
     Socket.on('privateMessage', function(msgData) {
       console.log(msgData);
+      var convMsg = {'convWith':msgData.convWith,'msgData':msgData.msgData };
       $scope.privateMessages.unshift(msgData);
+      console.log($scope.convs);
+      $scope.convs.unshift(convMsg);
 
     });
 
