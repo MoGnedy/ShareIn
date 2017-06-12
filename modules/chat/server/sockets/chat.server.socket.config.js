@@ -62,7 +62,7 @@ module.exports = function(io, socket) {
       console.log(receiverSocketId);
       console.log(io.sockets.connected[receiverSocketId]);
       if (io.sockets.connected[receiverSocketId]) {
-          msgData = {'displayName': msgData.sender, 'message': msgData.message, 'created': msgData.date, 'profileImageURL': msgData.profileImageURL};
+          msgData = {'convWith':msgData.receiverObj,'msgData':{'created':msgData.date,'message':msgData.message, 'user':msgData.senderObj},'displayName': msgData.sender, 'message': msgData.message, 'created': msgData.date, 'profileImageURL': msgData.profileImageURL};
           io.sockets.connected[receiverSocketId].emit('privateMessage', msgData );
       }
     // messageData = [messageData[2], messageData[1]]
