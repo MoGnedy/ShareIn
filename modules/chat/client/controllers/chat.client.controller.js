@@ -50,32 +50,22 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
       for (var i in onlineUsers) {
         $rootScope.onlineUsersUsernames.push(onlineUsers[i].username);
       }
-      console.log($rootScope.onlineUsersUsernames);
     });
 
 
     $rootScope.user_privateMsg = function(receiver) {
-      // private_code = {
-      //   'private_code': private_code
-      // };
-      console.log(receiver);
       $rootScope.privateMessages = [];
       privateMessages.getPrivateMsgs(receiver).then(function(res) {
-        console.log(res);
-        console.log(res && !res.status);
         if (res && res.allMessages && res.allMessages[0] && res.allMessages[0].messages && !res.status) {
-          console.log('true');
-          console.log(res.allMessages[0].messages);
           var msgsArray = res.allMessages[0].messages.reverse();
           for (var i in msgsArray) {
             $rootScope.privateMessages.push({
               'displayName': msgsArray[i].user.displayName,
               'profileImageURL': msgsArray[i].user.profileImageURL,
               'message': msgsArray[i].message,
-              'msg_id':msgsArray[i]._id,
+              'msg_id': msgsArray[i]._id,
               'date': msgsArray[i].created
             });
-            console.log(msgsArray[i].user);
           }
 
         } else {
@@ -96,19 +86,16 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
           'receiver': $rootScope.privateUserName,
           'private_message': $scope.privateText
         };
-        console.log(privateMessageData);
 
         privateMessages.savePrivateMsg(privateMessageData).then(function(res) {
-          console.log(res);
           var messageData = {
             'receiver': $rootScope.privateUserName.username,
             'message': $scope.privateText,
             'sender': $scope.authentication.user.username,
-            'senderObj':$scope.authentication.user,
-            'receiverObj':$rootScope.privateUserName,
+            'senderObj': $scope.authentication.user,
+            'receiverObj': $rootScope.privateUserName,
             'date': new Date()
           };
-          console.log(messageData);
           if (res && !res.status) {
             if ($scope.privateText !== '') {
               Socket.emit('privateMessage', messageData);
@@ -135,13 +122,11 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
       privateMessages.getPrivateUser({
         id: $state.params.userId
       }).then(function(res) {
-        console.log(res);
         if (res && res.username && !res.status) {
           delete res.password;
           delete res.salt;
-          console.log(res);
-
           $rootScope.privateUserName = res;
+
           $scope.receiverUser = res.displayName;
 
           $rootScope.user_privateMsg(res);
@@ -157,10 +142,13 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
 
     Socket.on('privateMessage', function(msgData) {
       console.log(msgData);
-      var convMsg = {'convWith':msgData.convWith,'msgData':msgData.msgData };
+      msgData.displayName = msgData.msgData.user.displayName;
+      msgData.date = msgData.created;
+      msgData.profileImageURL = msgData.msgData.user.profileImageURL;
+      // var convMsg = {'convWith':msgData.convWith,'msgData':msgData.msgData };
       $scope.privateMessages.unshift(msgData);
       console.log($scope.convs);
-      $scope.convs.unshift(convMsg);
+      // $scope.convs.unshift(convMsg);
 
     });
 
@@ -186,12 +174,8 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
 
 
     $scope.convRemove = function(user, i) {
-      console.log(user);
-      // console.log(angular.element(document.querySelector('#'+user._id)));
-      // angular.element(document.querySelector('#\\'+user._id)).remove();
       if ($window.confirm('Are you sure you want to delete?')) {
         privateMessages.removeConv(user).then(function(res) {
-          console.log(res);
 
           if (res && !res.status) {
 
@@ -210,14 +194,12 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
     };
 
     $scope.msgRemove = function(msg_id, i) {
-      console.log(msg_id);
-      console.log($rootScope.privateUserName);
-      // console.log(angular.element(document.querySelector('#'+user._id)));
-      // angular.element(document.querySelector('#\\'+user._id)).remove();
       if ($window.confirm('Are you sure you want to delete?')) {
-        var msgData = {'_id':msg_id, 'user':$rootScope.privateUserName};
+        var msgData = {
+          '_id': msg_id,
+          'user': $rootScope.privateUserName
+        };
         privateMessages.removeMsg(msgData).then(function(res) {
-          console.log(res);
 
           if (res && !res.status) {
 
