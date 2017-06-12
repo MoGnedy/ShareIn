@@ -55,7 +55,7 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
       });
 
 
-    };
+    }
 
   }
 ]);

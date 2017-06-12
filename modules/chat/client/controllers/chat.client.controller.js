@@ -210,7 +210,7 @@ angular.module('chat').controller('ChatController', ['$scope', '$rootScope', '$l
       // console.log(angular.element(document.querySelector('#'+user._id)));
       // angular.element(document.querySelector('#\\'+user._id)).remove();
       if ($window.confirm('Are you sure you want to delete?')) {
-        var msgData = {'_id':msg_id, 'user':$rootScope.privateUserName}
+        var msgData = {'_id':msg_id, 'user':$rootScope.privateUserName};
         privateMessages.removeMsg(msgData).then(function(res) {
           console.log(res);
 

@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('sharehouses').factory("commentServices", function($http, $q) {
-
+angular.module('sharetools').factory("commentToolServices", function($http, $q) {
   return {
     removeComment: function(comment) {
       var def = $q.defer();
+      console.log(comment);
       $http({
-        "url": "/api/removeHouseComment",
+        "url": "/api/removeToolComment",
         "method": "post",
         "data": comment,
       }).then(function(res) {

@@ -47,6 +47,8 @@ module.exports = function(app) {
     .post(comment.create);
   app.route('/api/getToolComments')
     .post(comment.list);
+  app.route('/api/removeToolComment')
+      .post(comment.delete);
 
   // app.route('/api/sharetools/create');
 

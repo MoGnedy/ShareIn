@@ -6,9 +6,9 @@
     .module('sharehouses')
     .controller('SharehousesController', SharehousesController);
 
-  SharehousesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'sharehouseResolve', '$http', '$compile', 'Socket', 'commentServices'];
+  SharehousesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'sharehouseResolve', '$http', '$compile', 'Socket', 'commentHouseServices'];
 
-  function SharehousesController($scope, $state, $window, Authentication, sharehouse, $http, $compile, Socket, commentServices) {
+  function SharehousesController($scope, $state, $window, Authentication, sharehouse, $http, $compile, Socket, commentHouseServices) {
     var vm = this;
     vm.stateName = $state.current.name;
     console.log($state.current.name);
@@ -45,20 +45,42 @@
         $scope.$broadcast('show-errors-check-validity', 'vm.form.sharehouseForm');
         return false;
       }
+      var imageUrl;
+      var file = vm.myFile;
+      var uploadUrl = "/multerHouse";
+      var fd = new FormData();
 
       // TODO: move create/update logic to service
       if (vm.sharehouse.Data[0]._id) {
+        imageUrl = './modules/sharehouses/client/img/house/' + vm.myFile.name;
+        console.log(imageUrl);
+        fd.append('file', file);
+        console.log('before Post');
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {
+              'Content-Type': undefined
+            }
+          })
+          .success(function() {
+            console.log("success!!");
+          })
+          .error(function() {
+            console.log("error!!");
+          });
+          if (vm.myFile){
+            console.log('tmam');
+            vm.sharehouseObj.houseImageURL = imageUrl;
+          }
+
         vm.sharehouseObj._id = vm.sharehouse.Data[0]._id;
         vm.sharehouseObj.title = vm.sharehouse.Data[0].title;
         vm.sharehouseObj.content = vm.sharehouse.Data[0].content;
-        vm.sharehouseObj.houseImageURL = vm.sharehouse.Data[0].houseImageURL;
+        // vm.sharehouseObj.houseImageURL = vm.sharehouse.Data[0].houseImageURL;
         vm.sharehouseObj.$update(successCallback, errorCallback);
       } else {
-        var imageUrl = './modules/sharehouses/client/img/house/' + vm.myFile.name;
+        imageUrl = './modules/sharehouses/client/img/house/' + vm.myFile.name;
         console.log(imageUrl);
-        var file = vm.myFile;
-        var uploadUrl = "/multerHouse";
-        var fd = new FormData();
         fd.append('file', file);
         console.log('before Post');
         $http.post(uploadUrl, fd, {
@@ -138,9 +160,10 @@
       // angular.element(document.querySelector('#\\'+user._id)).remove();
       if ($window.confirm('Are you sure you want to delete?')) {
         // var commentData = {'tool_id':tool_id, 'comment_id':comment_id,}
-        var comment = {'comment': comment_id}
+        var comment = {'comment': comment_id};
         console.log(comment_id);
-        commentServices.removeComment(comment).then(function(res) {
+        console.log(commentHouseServices);
+        commentHouseServices.removeComment(comment).then(function(res) {
           console.log(res);
 
           if (res && !res.status) {
@@ -156,7 +179,7 @@
 
       }
 
-    };
+    }
 
 
 
