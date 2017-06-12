@@ -1,6 +1,6 @@
 
 .body{
- background-color:lightgray;
+ background-color:gray;
 }
 
 .word{
@@ -74,6 +74,7 @@ a:hover .header-profile-image {
     width: 70%;
     margin: auto;
     height: 350px;
+    color:darkred;
 }
 .housinglist{
   background-color:#ebebeb;
@@ -82,7 +83,8 @@ a:hover .header-profile-image {
   padding-top: 500px;
 }
 .list-group-item{
-  border-radius:20px;
+  border-radius:50px;
+  border: 1px solid darkred;
   height:30%;
   width:100%;
   overflow: hidden;
@@ -241,4 +243,8 @@ a:hover .header-profile-image {
     /* background-image: linear-gradient(to right, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%); */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
     background-repeat: repeat-x;
+}
+.navbar-header{
+    background-color: darkred;
+
 }
