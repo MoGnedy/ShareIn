@@ -19,10 +19,7 @@ var PrivatMsgSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  // updated: {
-  //   type: Date,
-  //   default: Date.now
-  // },
+
   allMessages:[{
                   user: {
                     type: Schema.ObjectId,
@@ -50,15 +47,7 @@ var PrivatMsgSchema = new Schema({
                             ],
             }]
 
-  // },
-  // user: {
-  //   type: Schema.ObjectId,
-  //   ref: 'User'
-  // },
-  // private_message: {
-  //   type: String,
-  //   trim: true
-  // }
+
 });
 
 mongoose.model('PrivatMsg', PrivatMsgSchema);

@@ -21,6 +21,11 @@ var SharetoolSchema = new Schema({
     default: '',
     trim: true
   },
+  location: {
+    type: String,
+    default: '',
+    trim: true
+  },
   toolImageURL: {
     type: String,
     default: 'modules/sharetools/client/img/tool/default.jpg'

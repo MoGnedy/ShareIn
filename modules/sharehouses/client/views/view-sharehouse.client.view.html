@@ -24,6 +24,9 @@
       <img src="{{vm.sharehouse.Data[0].houseImageURL}}" alt="" class="img-responsive">
     </div>
     <div class="col-md-6 word">
+        <p class="lead" ng-bind="vm.sharehouse.Data[0].location"></p>
+  </div>
+    <div class="col-md-6 word">
         <p class="lead" ng-bind="vm.sharehouse.Data[0].content"></p>
   </div>
 </div>
@@ -33,8 +36,11 @@
       <span ng-bind="vm.sharehouse.Data[0].created | date:'mediumDate'"></span>
       <span ng-if="!vm.sharehouse.Data[0].user ">Deleted User</span>
       by
-      <span ng-if="vm.sharehouse.Data[0].user"
-            ng-bind="vm.sharehouse.Data[0].user.displayName"></span>
+      <span ng-if="vm.sharehouse.Data[0].user">
+        <a ui-sref="userProfile({userId: vm.sharehouse.Data[0].user._id})">{{vm.sharehouse.Data[0].user.displayName}}
+        </a>
+        <span ng-if="!vm.sharehouse.Data[0].user">Deleted User</span>
+      </span>
     </em>
   </small>
 </section>

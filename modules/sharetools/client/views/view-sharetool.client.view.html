@@ -31,6 +31,9 @@
       <div class="col-md-4 col-md-offset-1">
       <img src="{{vm.sharetool.Data[0].toolImageURL}}" alt="" class="img-responsive Toolimg">
      </div>
+     <div class="col-md-6 word">
+  <p class="lead" ng-bind="vm.sharetool.Data[0].location"></p>
+  </div>
        <div class="col-md-6 word">
     <p class="lead" ng-bind="vm.sharetool.Data[0].content"></p>
     </div>
@@ -40,8 +43,10 @@
       Posted on
       <span ng-bind="vm.sharetool.Data[0].created | date:'mediumDate'"></span>
       by
-      <span ng-if="vm.sharetool.Data[0].user"
-            ng-bind="vm.sharetool.Data[0].user.displayName"></span>
+      <span ng-if="vm.sharetool.Data[0].user">
+        <a ui-sref="userProfile({userId: vm.sharetool.Data[0].user._id})">{{vm.sharetool.Data[0].user.displayName}}
+        </a>
+      </span>
       <span ng-if="!vm.sharetool.Data[0].user">Deleted User</span>
     </em>
   </small>
