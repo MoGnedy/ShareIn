@@ -16,6 +16,10 @@
   position: relative;
   overflow: hidden;
 }
+.profile{
+
+  padding-left: 330px;
+}
 .btn-file input[type=file] {
   position: absolute;
   top: 0;
@@ -33,4 +37,7 @@
 .user-profile-picture {
   min-height: 150px;
   max-height: 150px;
+}
+hr{
+  border: darkred 1px solid;
 }

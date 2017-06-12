@@ -6,10 +6,13 @@
   border-top: 1px solid #e7e7e7;
 }
 .chat-message-details {
-  margin-left: 10px;
+  margin-left:0;
 }
 .chat-profile-image {
   height: 28px;
   width: 28px;
   border-radius: 50%;
+}
+.img-name{
+  padding-right: 600px;
 }
