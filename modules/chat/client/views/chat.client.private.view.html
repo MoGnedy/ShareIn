@@ -1,24 +1,31 @@
 <!-- The chat view -->
-
-<div class="row" ng-controller="ChatController">
+<div class="container page-styling"  ng-controller="ChatController">
+<div class="header-wrapper">
+<section>
+<div class="site-name">
+<image src="modules/core/client/img/brand/chat.png" class="img-circle img-responsive" style="height:150px;width:150px;"/>
+</div>
+<p></p>
+<div class="form-style-3">
+  <fieldset>
   <div class="col-md-2">
     <!-- {{onlineUsers}} -->
     <!-- {{userId}} -->
   </div>
   <div class="col-md-9">
 
-    <section class="container">
+    <section>
       <div class="page-header">
-        <h1>Chat with {{receiverUser}}</h1>
+        <h1 class="input-group2">Chat with {{receiverUser}}</h1>
         <!-- {{onlineUsers}} -->
       </div>
       <!-- The message form -->
-      <form class="col-xs-12 col-md-offset-4 col-md-4" ng-submit="sendPrivate();">
+      <form class="col-xs-12 col-md-10" ng-submit="sendPrivate();">
         <fieldset class="row">
           <div class="input-group">
             <input type="text" id="privateText" name="privateText" class="form-control" ng-model="privateText" placeholder="Enter new message">
             <span class="input-group-btn">
-          <button type="submit" class="btn btn-primary" ng-disabled="!privateText.length">Submit</button>
+          <button type="submit" class="btn btn-danger" ng-disabled="!privateText.length">Submit</button>
         </span>
           </div>
         </fieldset>
@@ -40,9 +47,6 @@
   </div>
 
 <section ng-if="privateMessages == ''  ? false : true">
-  <div class="page-header">
-    <h1>Messages</h1>
-  </div>
   <!-- {{privateMessages}} -->
   <div class="list-group" id="privateMessages">
     <!-- {{vm.sharetool.Data[1]}} -->
@@ -52,6 +56,15 @@
           <i class="glyphicon glyphicon-trash"></i>
         </a>
       </div>
+
+        <div class="img-name">
+          <img ng-src="{{message.profileImageURL}}" alt="{{message.displayName}}" class="header-profile-image" />
+          <span><h4 class="list-group-item-heading" ng-bind="message.message"></h4></span>
+          
+            </div>
+
+        <p class="list-group-item-text" ng-bind="message.message"></p>
+
       <small class="list-group-item-text">
         Posted on
         <span ng-bind="message.date | date:'mediumDate'"></span>
@@ -59,12 +72,12 @@
         <span ng-if="message" ng-bind="message.displayName"></span>
         <span ng-if="!message">Deleted User</span>
       </small>
-      <h4 class="list-group-item-heading" ng-bind="message.message"></h4>
-
-      <p class="list-group-item-text" ng-bind="message.message"></p>
-      <img ng-src="{{message.profileImageURL}}" alt="{{message.displayName}}" class="header-profile-image" />
-
     </div>
   </div>
 </section>
+</div>
+</fieldset>
+</div>
+</section>
+</div>
 </div>

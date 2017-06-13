@@ -49,7 +49,7 @@
   </div> -->
   <div class="col-md-12">
     <form name="vm.form.commentForm" class="form-horizontal" ng-submit="vm.saveComment(vm.form.commentForm.$valid)" novalidate>
-    <h1>Your Comment</h1>
+    <h1 style="color:white;">Your Comment</h1>
         <div class="form-group" show-errors>
 
           <textarea name="name" type="text" ng-model="vm.comment.comment" id="comment" class="form-control" placeholder="comment" required></textarea>
@@ -58,7 +58,7 @@
           </div>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn"  style="background-color:#082463; color:white;">{{vm.comment._id ? 'Update' : 'Comment'}}</button>
+          <button type="submit" class="btn" style="background-color:white;color:darkred;">{{vm.comment._id ? 'Update' : 'Comment'}}</button>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>
@@ -70,6 +70,8 @@
 </fieldset>
 <div class="form-style-3">
   <fieldset >
+    <div class="form-style-3">
+      <fieldset >
 <section ng-if="vm.sharehouse.Data[1] == ''  ? false : true" >
   <div class="list-group " id="comments">
     <!-- {{vm.sharehouse.Data[1]}} -->
@@ -99,6 +101,8 @@
     No Houses yet, why don't you <a ui-sref="sharehouses.create">create one</a>?
   </div>
 </section>
+</div>
+</fieldset>
 </div>
 </fieldset>
 </div>

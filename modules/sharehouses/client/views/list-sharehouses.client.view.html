@@ -5,15 +5,20 @@
 <image src="modules/core/client/img/brand/H.jpg" class="img-circle img-responsive" style="height:150px;width:150px;"/>
 </div>
 <p></p>
+<div class="input-group searchv">
+    <input type="text" ng-model="searchText" class="form-control" placeholder="Search for...">
+    <span class="input-group-btn">
+    </span>
+  </div><!-- /input-group -->
 <div class="form-style-3">
   <fieldset>
-  <button type="button" class="btn" ui-sref="sharehouses.create" style="background-color:#FFDE00;color: #097054;">Add New Advertising</button>
+  <button type="button" class="btn" ui-sref="sharehouses.create" style="background-color:darkred;color: white;">Add New Advertising</button>
 <p></p>
 <div class="row">
 <div class="featured-items">
-<div ng-repeat="sharehouse in vm.sharehouses" class="col-md-4 ">
+<div ng-repeat="sharehouse in vm.sharehouses | filter:searchText" class="col-md-4 ">
 <ul id="grid" >
-<li >
+<li>
     <div class="item">
     <h4 class="list-group-item-heading" ng-bind="sharehouse.title"></h4>
      <div class="grow">
