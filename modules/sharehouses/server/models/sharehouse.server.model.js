@@ -21,6 +21,11 @@ var SharehouseSchema = new Schema({
     default: '',
     trim: true
   },
+  location: {
+    type: String,
+    default: '',
+    trim: true
+  },
   houseImageURL: {
     type: String,
     default: 'modules/sharehouses/client/img/house/default.png'

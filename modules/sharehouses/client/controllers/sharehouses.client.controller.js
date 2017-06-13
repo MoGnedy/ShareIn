@@ -76,10 +76,13 @@
         vm.sharehouseObj._id = vm.sharehouse.Data[0]._id;
         vm.sharehouseObj.title = vm.sharehouse.Data[0].title;
         vm.sharehouseObj.content = vm.sharehouse.Data[0].content;
+        vm.sharehouseObj.location = vm.sharehouse.Data[0].location;
         // vm.sharehouseObj.houseImageURL = vm.sharehouse.Data[0].houseImageURL;
         vm.sharehouseObj.$update(successCallback, errorCallback);
       } else {
+        if (vm.myFile){
         imageUrl = './modules/sharehouses/client/img/house/' + vm.myFile.name;
+      }
         console.log(imageUrl);
         fd.append('file', file);
         console.log('before Post');
@@ -98,6 +101,7 @@
 
         vm.sharehouseObj.title = vm.sharehouse.Data[0].title;
         vm.sharehouseObj.content = vm.sharehouse.Data[0].content;
+        vm.sharehouseObj.location = vm.sharehouse.Data[0].location;
         vm.sharehouseObj.houseImageURL = imageUrl;
         vm.sharehouseObj.$save(successCallback, errorCallback);
       }

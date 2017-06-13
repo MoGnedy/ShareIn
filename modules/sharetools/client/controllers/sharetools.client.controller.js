@@ -76,7 +76,7 @@
       var file = vm.myFile;
       var uploadUrl = "/multerTool";
       var fd = new FormData();
-    
+
       console.log(vm.sharetool.Data[0]);
       console.log(vm.myFile);
       // TODO: move create/update logic to service
@@ -108,6 +108,7 @@
         vm.sharetoolObj._id = vm.sharetool.Data[0]._id;
         vm.sharetoolObj.title = vm.sharetool.Data[0].title;
         vm.sharetoolObj.content = vm.sharetool.Data[0].content;
+        vm.sharetoolObj.location = vm.sharetool.Data[0].location;
         // vm.sharetoolObj.toolImageURL = vm.sharetool.Data[0].toolImageURL;
         vm.sharetoolObj.$update(successCallback, errorCallback);
       } else {
@@ -139,6 +140,7 @@
         }
         vm.sharetoolObj.title = vm.sharetool.Data[0].title;
         vm.sharetoolObj.content = vm.sharetool.Data[0].content;
+        vm.sharetoolObj.location = vm.sharetool.Data[0].location;
         vm.sharetoolObj.$save(successCallback, errorCallback);
       }
 
