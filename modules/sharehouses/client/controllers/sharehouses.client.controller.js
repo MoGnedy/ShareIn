@@ -52,7 +52,9 @@
 
       // TODO: move create/update logic to service
       if (vm.sharehouse.Data[0]._id) {
+        if (vm.myFile){
         imageUrl = './modules/sharehouses/client/img/house/' + vm.myFile.name;
+      }
         console.log(imageUrl);
         fd.append('file', file);
         console.log('before Post');
@@ -173,6 +175,8 @@
           if (res && !res.status) {
 
             vm.sharehouse.Data[1].splice(i, 1);
+            comment = {'house':vm.sharehouse.Data[0],'i':i};
+            Socket.emit('deleteHouseComment', comment);
             // $rootScope.$apply();
           } else {
             console.log("send error");
@@ -198,6 +202,15 @@
           .error(function(data, status) {
             console.error('Repos error', status, data);
           });
+
+      }
+    });
+
+    Socket.on('updateAfterDeleteHouseComments', function(comment) {
+      console.log(comment);
+      // console.log(house_id);
+      if (comment.house._id === vm.sharehouse.Data[0]._id) {
+        vm.sharehouse.Data[1].splice(comment.i, 1);
 
       }
     });

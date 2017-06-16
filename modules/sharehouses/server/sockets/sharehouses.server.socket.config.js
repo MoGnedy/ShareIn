@@ -22,6 +22,10 @@ module.exports = function(io, socket) {
 
   });
 
+  socket.on('deleteHouseComment', function(comment) {
+    io.emit('updateAfterDeleteHouseComments', comment);
+    io.sockets.emit('updateAfterDeleteHouseComments', comment);
+  });
 
   socket.on('disconnect', function() {
     if (onlineUsers && onlineUsers[socket.id]){

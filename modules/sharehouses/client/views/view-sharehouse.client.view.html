@@ -84,7 +84,7 @@
     <div ng-repeat="comment in vm.sharehouse.Data[1]"
        class="list-group-item form-control">
        <img ng-src="{{comment.user.profileImageURL}}" alt="{{comment.title}}" class="header-profile-image" />
-         <span ng-if="comment.user" ng-bind="comment.user.displayName"></span>
+         <span ng-if="comment.user"><a ui-sref="userProfile({userId: comment.user._id})">{{comment.user.displayName}}</a></span>
          <!-- <h4 class="list-group-item-heading" ng-bind="comment.title"></h4> -->
          <fieldset>
            <div class="pull-right"
