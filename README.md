@@ -5,7 +5,7 @@ ITI FInal Project (MEAN Stack)
 
 Run the following steps to install and run the project
 	
-* Run terminal and then run these commands
+	* Run terminal and then run these commands
 	git clone https://github.com/MoGnedy/ShareIn.git
 	cd ShareIn
 	sudo npm install –g bower gulp yo grunt-cli generator-meanjs
